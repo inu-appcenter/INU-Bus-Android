@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryDark">#CCCCCC</color>
+    <color name="colorPrimaryDark_v23">#ffffff</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#ffffff</color>
+    <color name="navigationBarColor">#FFFFFF</color>
+    <color name="colorAccent">@color/main_color</color>
+
+    <!-- 액션바 타이틀, 탭 아이콘 색상,-->
+    <color name="main_color">@color/my_blue</color>
+    <color name="my_blue">#4A7AC2</color>
+    <color name="inu_blue">#014999</color>
+    <color name="tire_gray">#9E9E9E</color>
+
+    <integer-array name="logo_i_color">
+        <item>@color/my_blue</item>
+        <item>@color/my_blue</item>
+    </integer-array>
+
+    <integer-array name="logo_n_color">
+        <item>@color/my_blue</item>
+    </integer-array>
+
+    <integer-array name="logo_u_color">
+        <item>@color/my_blue</item>
+    </integer-array>
+
+
+</resources>
