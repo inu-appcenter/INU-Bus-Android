@@ -8,6 +8,7 @@
     <color name="colorAccent">@color/main_color</color>
 
     <!-- 액션바 타이틀, 탭 아이콘 색상,-->
+
     <color name="main_color">@color/my_blue</color>
     <color name="my_blue">#4A7AC2</color>
     <color name="inu_blue">#014999</color>
@@ -25,6 +26,11 @@
     <integer-array name="logo_u_color">
         <item>@color/my_blue</item>
     </integer-array>
+
+
+    <color name="광역">@android:color/holo_red_light</color>
+    <color name="광역급행">@android:color/holo_blue_light</color>
+    <color name="간선급행">@android:color/holo_purple</color>
 
 
 </resources>

@@ -10,6 +10,7 @@ import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.graphics.drawable.Animatable2Compat;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
@@ -36,6 +37,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,6 +57,14 @@ public class BusInfoActivity extends AppCompatActivity {
     private int selectedTab = 0;
     private boolean paused = false;
     private Context context = this;
+    private Handler mHandler = new Handler();
+    private Timer tmr;
+    private Runnable updateRemainingTimeRunnable = new Runnable() {
+        @Override
+        public void run() {
+            pagerAdapter.update();
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -66,7 +77,7 @@ public class BusInfoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.info:
-                startActivity(new Intent(getApplicationContext(), AppInfoActivity.class));
+                startActivity(new Intent(context, AppInfoActivity.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
             default:
@@ -192,6 +203,13 @@ public class BusInfoActivity extends AppCompatActivity {
 
         showNotices();
 
+        Timer tmr = new Timer();
+        tmr.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                mHandler.post(updateRemainingTimeRunnable);
+            }
+        }, 1000, 30000);
     }
 
     private void showNotices(){
@@ -300,6 +318,4 @@ public class BusInfoActivity extends AppCompatActivity {
         }
         return bitmap[0];
     }
-
-
 }

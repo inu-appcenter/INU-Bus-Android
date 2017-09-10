@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -30,6 +32,10 @@ import com.google.gson.JsonParser;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,7 +56,18 @@ public class BusInfoFragment extends Fragment {
     private static Retrofit retrofit;
     private static final String TAG = "INUBus";
     private RetrofitService retrofitService;
-    private ImageView footer;
+    private TextView footer;
+    private long updateTime;
+    private Handler mHandler = new Handler();
+    private Timer tmr;
+    // TODO 타이머의 시작과 종료를 앱, 액티비티, 프래그먼트 생명주기에 맞춰주어야한다.
+    private Runnable updateFooterTime = new Runnable() {
+        @Override
+        public void run() {
+                long currentTime = System.currentTimeMillis();
+                footer.setText((currentTime - updateTime)/1000 + "초전 업데이트.");
+        }
+    };
 
     @Nullable
     @Override
@@ -66,24 +83,6 @@ public class BusInfoFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                for(int i = 0; i < fragments.size(); i++){
-                    fragments.get(i).updateData();
-                }
-            }
-        });
-
-        // Footer 추가
-        if(footer == null) {
-            footer = new ImageView(context);
-        }
-        footer.setImageResource(R.drawable.ic_vt_arrow_down);
-        footer.setScaleX(2);
-        footer.setScaleY(2);
-
-        listView.addFooterView(footer);
-        footer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 for(int i = 0; i < fragments.size(); i++){
                     fragments.get(i).updateData();
                 }
@@ -115,7 +114,24 @@ public class BusInfoFragment extends Fragment {
 //                dialog.show();
             }
         });
+        footer = new TextView(context);
+        footer.setGravity(Gravity.CENTER);
+        updateTime = System.currentTimeMillis();
+        listView.addFooterView(footer);
+        tmr = new Timer();
+        tmr.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                mHandler.post(updateFooterTime);
+            }
+        }, 1000, 1000);
         return rootView;
+    }
+
+    public void setFooterText(String str){
+        if(footer != null){
+            footer.setText(str);
+        }
     }
 
     @Override
@@ -134,9 +150,13 @@ public class BusInfoFragment extends Fragment {
     // TODO 데이터를 없애고 새로 넣는게 아니라, 추가하고 갱신하는 방식으로 변겅하고, 리싸이클러뷰를 이용해 애니메이션 강조를 사용 하도록 한다.
     public void updateData()
     {
-        if(swipeRefreshLayout != null) {
+        if(swipeRefreshLayout == null) {
+            return;
+        }
+        try {
             swipeRefreshLayout.setRefreshing(true);
             Call<JsonArray> call = retrofitService.getData("arrivalinfo");
+//            Call<JsonArray> call = retrofitService.getData("fakedata.txt");
             call.enqueue(new Callback<JsonArray>() {
                 @Override
                 public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
@@ -145,6 +165,7 @@ public class BusInfoFragment extends Fragment {
                     JsonParser jsonParser = new JsonParser();
                     JsonArray data = (JsonArray) jsonParser.parse(response.body().toString());
                     setListview(data);
+                    updateTime = System.currentTimeMillis();
                     swipeRefreshLayout.setRefreshing(false);
                 }
 
@@ -167,6 +188,9 @@ public class BusInfoFragment extends Fragment {
                 }
             });
         }
+        catch(Exception e){
+            Log.e(TAG, "updateData: ", e);
+        }
     }
 
     // TODO 버스 특징대로 정렬
@@ -179,7 +203,7 @@ public class BusInfoFragment extends Fragment {
                 for(int j = 0; j < arrivalArray.size(); j++)
                 {
                     JsonObject arrival = arrivalArray.get(j).getAsJsonObject();
-                    listViewAdapter.addItem(arrival.get("no").getAsString(), arrival.get("arrival").getAsLong(), arrival.get("interval").getAsInt(), arrival.get("start").getAsString(), arrival.get("end").getAsString());
+                    listViewAdapter.addItem(arrival);
                     listViewAdapter.sort();
                     listViewAdapter.notifyDataSetChanged();
                 }

@@ -2,11 +2,14 @@ package com.bungabear.inubus;
 
 import android.content.Context;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,8 +55,8 @@ class BusInfoListViewAdapter extends BaseAdapter {
         return mListData.size();
     }
 
-    public void addItem(String no, long arrival, int interval, String start, String end){
-        CustomListData addInfo = new CustomListData(no, arrival, interval, start, end);
+    public void addItem(JsonObject data){
+        CustomListData addInfo = new CustomListData(data.get("no").getAsString(), data.get("arrival").getAsLong(),  data.get("interval").getAsInt(), data.get("start").getAsString(), data.get("end").getAsString(), data.get("type").getAsString());
         mListData.add(addInfo);
 //        Log.d(TAG, "addItem: " + " no : " + no + " arrival : " + arrival + " interval : " + interval + " start : " + start + " end : " + end);
     }
@@ -83,6 +86,7 @@ class BusInfoListViewAdapter extends BaseAdapter {
             holder.tv_arrival = (TextView) convertView.findViewById(R.id.arrival);
             holder.tv_arrivalText = (TextView) convertView.findViewById(R.id.arrival_text);
             holder.tv_interval = (TextView) convertView.findViewById(R.id.interval);
+            holder.tv_busNoM = (TextView) convertView.findViewById(R.id.busNoM);
 
             convertView.setTag(holder);
         } else {
@@ -94,6 +98,20 @@ class BusInfoListViewAdapter extends BaseAdapter {
         holder.tv_interval.setText(" "+listData.i_interval+"분");
         holder.tv_arrivalText.setText((listData.i_arrivalText==1)? context.getString(R.string.arrival_before) + " ": context.getString(R.string.arrival_after) + " ");
         holder.l_arrival = listData.l_arrival;
+        if(listData.getType().equals("광역")){
+            holder.tv_busNo.setTextColor(ContextCompat.getColor(context, R.color.광역));
+        }
+        else if(listData.getType().equals("광역급행")){
+            // M버스
+            holder.tv_busNoM.setVisibility(View.VISIBLE);
+            holder.tv_busNo.setTextColor(ContextCompat.getColor(context, R.color.광역급행));
+        }
+        else if(listData.getType().equals("간선급행")){
+            holder.tv_busNo.setTextColor(ContextCompat.getColor(context, R.color.간선급행));
+        }
+        else {
+            // 기본색상
+        }
         long arrivaltime = Math.abs(listData.l_arrival - System.currentTimeMillis());
         holder.tv_arrival.setText(String.format("%d 분 %d 초",
                 TimeUnit.MILLISECONDS.toMinutes(arrivaltime),
@@ -120,9 +138,10 @@ class BusInfoListViewAdapter extends BaseAdapter {
         }
     }
 
-    //ListView Item 뷰를 담는 클래스
+    //ListView Item 뷰를 담는 클래스 ViewHoler
     private class CustomViewHolder {
         private TextView tv_busNo;
+        private TextView tv_busNoM;
         private TextView tv_interval;
         private TextView tv_intervalText;
         private TextView tv_arrival;
@@ -147,22 +166,24 @@ class BusInfoListViewAdapter extends BaseAdapter {
             tv_arrivalText.append(" ");
         }
     }
+
     //ListView Item 객체들이 가질 데이터를 담는 클래스
     public class CustomListData {
-        private String st_busNo, st_start, st_end;
+        private String st_busNo, st_start, st_end, st_type;
         private int i_interval;
         private long l_arrival;
 
         // 0 = after, 1 = before
         private int i_arrivalText;
 
-        CustomListData(String no, long arrival, int interval, String start, String end) {
+        CustomListData(String no, long arrival, int interval, String start, String end, String type) {
             st_busNo = no;
             l_arrival = arrival;
             i_interval = interval;
             st_start = start;
             st_end = end;
             i_arrivalText = (l_arrival > System.currentTimeMillis()) ? 1 : 0;
+            st_type = type;
         }
 
         public String getBusNo() {
@@ -177,6 +198,9 @@ class BusInfoListViewAdapter extends BaseAdapter {
             return st_end;
         }
 
+        public String getType() {
+            return st_type;
+        }
     }
 
     public void sort(){
