@@ -9,8 +9,8 @@
         <item name="android:windowContentTransitions">true</item>
         <!--<item name="android:navigationBarColor">@android:color/white</item>-->
 
-        <!-- SDK23부터는 스테이터스바 아이콘을 어두룬색으로 바꿀 수 있다.-->
-        <item name="android:windowLightStatusBar">true</item>
+        <!-- 스테이터스바 아이콘을 밝은색으로.-->
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <!-- 스플래시 화면을 위한 액션바 없는 테마 완전 하얀테마 -->

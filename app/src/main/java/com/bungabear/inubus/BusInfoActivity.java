@@ -120,9 +120,6 @@ public class BusInfoActivity extends AppCompatActivity {
 //        getSupportActionBar().setCustomView(actionbarLayout);
         // 액션바 설정 끝
 
-        // 스플래시 액티비티 실행
-        startActivity(new Intent(getApplicationContext(), SplashActivity.class));
-
         // 탭 추가 및 기본 설정
         tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
