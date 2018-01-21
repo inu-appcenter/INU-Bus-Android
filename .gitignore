@@ -2,6 +2,9 @@
 ### Example user template template
 ### Example user template
 
+# 중요 정보
+KeyClass.java
+
 # IntelliJ project files
 .idea
 *.iml
