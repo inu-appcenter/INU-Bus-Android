@@ -2,10 +2,10 @@ package com.bungabear.inubus;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -15,16 +15,17 @@ import android.support.design.widget.TabLayout;
 import android.support.graphics.drawable.Animatable2Compat;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.gson.JsonArray;
@@ -46,7 +47,6 @@ import retrofit2.Response;
 
 // TODO 서버의 갱신 주기와 시간을 비교해 자동으로 정보를 업데이트 하도록 한다.
 // TODO 문의, 건의 기능 추가. 가능하면 로그도 첨부
-// TODO 탭 즐겨찾기 및 즐겨찾기를 특정 GPS위치에서는 상단바에 표시
 public class BusInfoActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor sharedPreferencesEditor;
@@ -65,25 +65,8 @@ public class BusInfoActivity extends AppCompatActivity {
             pagerAdapter.update();
         }
     };
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.info:
-                startActivity(new Intent(context, AppInfoActivity.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+    private SearchView mSearchView;
+    private ActionBar actionBar;
 
     @Override
     protected void onResume() {
@@ -109,15 +92,48 @@ public class BusInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_businfo);
         sharedPreferences = getSharedPreferences("dialog", MODE_PRIVATE);
         sharedPreferencesEditor = sharedPreferences.edit();
+
+
         // 커스텀 액션바 설정
-//        getSupportActionBar().setDisplayShowHomeEnabled(false);
-//        getSupportActionBar().setDisplayUseLogoEnabled(false);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-//        getSupportActionBar().setDisplayShowTitleEnabled(false);
-//
-//        LinearLayout actionbarLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_actionbar, null);
-//        getSupportActionBar().setDisplayShowCustomEnabled(true);
-//        getSupportActionBar().setCustomView(actionbarLayout);
+        LinearLayout actionbar = (LinearLayout) getLayoutInflater().inflate(R.layout.custom_actionbar, null);
+        mSearchView = actionbar.findViewById(R.id.actionbar_searchview);
+//        LinearLayout.LayoutParams llp = (LinearLayout.LayoutParams) mSearchView.getLayoutParams();
+//        llp.setMargins(0,0,0,0);
+//        mSearchView.setLayoutParams(llp);
+
+        int search_plate = getResources().getIdentifier("search_plate", "id", "android");
+        LinearLayout v = (LinearLayout) mSearchView.findViewById(search_plate);
+        v.setBackgroundColor(Color.TRANSPARENT);
+
+//        int search_edit_frame = getResources().getIdentifier("search_edit_frame", "id", "android");
+//        LinearLayout lllv = (LinearLayout) mSearchView.findViewById(search_edit_frame);
+//        LinearLayout.LayoutParams lllvp = (LinearLayout.LayoutParams) lllv.getLayoutParams();
+//        lllvp.setMargins(0,0,0,0);
+//        lllv.setLayoutParams(lllvp);
+
+        int search_src_text = getResources().getIdentifier("search_src_text", "id", "android");
+        EditText mSearchView_et = mSearchView.findViewById(search_src_text);
+        mSearchView_et.setTextColor(Color.BLACK);
+        mSearchView_et.setBackgroundColor(Color.WHITE);
+        mSearchView_et.setHintTextColor(Color.GRAY);
+        mSearchView_et.setHint("버스정류장 검색");
+
+        int searchMagIcon = getResources().getIdentifier("search_mag_icon", "id", "android");
+        ImageView icon = (ImageView) mSearchView.findViewById(searchMagIcon);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) icon.getLayoutParams();
+        params.setMargins(0,0,0,0);
+        icon.setLayoutParams(params);
+
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(actionbar);
+
+        Toolbar parent =(Toolbar) actionbar.getParent();
+        parent.setContentInsetsAbsolute(0,0);
         // 액션바 설정 끝
 
         // 탭 추가 및 기본 설정
@@ -134,9 +150,9 @@ public class BusInfoActivity extends AppCompatActivity {
         View tab0 = getLayoutInflater().inflate(R.layout.custom_businfo_tab, null);
         View tab1 = getLayoutInflater().inflate(R.layout.custom_businfo_tab, null);
         View tab2 = getLayoutInflater().inflate(R.layout.custom_businfo_tab, null);
-        ((TextView)tab0.findViewById(R.id.tabText)).setText("자과대");
-        ((TextView)tab1.findViewById(R.id.tabText)).setText("공대");
-        ((TextView)tab2.findViewById(R.id.tabText)).setText("정문");
+//        ((TextView)tab0.findViewById(R.id.tabText)).setText("자과대");
+//        ((TextView)tab1.findViewById(R.id.tabText)).setText("공대");
+//        ((TextView)tab2.findViewById(R.id.tabText)).setText("정문");
 
         // 복잡한 벡터 애니메이션이 마시멜로우 이하에서는 제대로 표시가안됨.
         if(Build.VERSION.SDK_INT >= 25) {

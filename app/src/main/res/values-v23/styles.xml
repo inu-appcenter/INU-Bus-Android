@@ -7,6 +7,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@android:color/white</item>
         <item name="android:windowContentTransitions">true</item>
+        <item name="android:actionBarSize">@dimen/actionbar_height</item>
+        <item name="actionBarSize">@dimen/actionbar_height</item>
         <!--<item name="android:navigationBarColor">@android:color/white</item>-->
 
         <!-- 스테이터스바 아이콘을 밝은색으로.-->

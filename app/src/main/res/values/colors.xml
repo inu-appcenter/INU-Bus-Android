@@ -31,7 +31,6 @@
         <item>@color/my_blue</item>
     </integer-array>
 
-
     <color name="광역">@android:color/holo_red_light</color>
     <color name="광역급행">@android:color/holo_blue_light</color>
     <color name="간선급행">@android:color/holo_purple</color>

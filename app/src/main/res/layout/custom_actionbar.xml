@@ -1,22 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    >
+    android:layout_margin="0dp"
+    android:background="@color/colorPrimary">
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <SearchView
+        android:id="@+id/actionbar_searchview"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/iv_icon"
-        android:src="@drawable/ic_appicon"
-        android:transitionName="appicon"
+        android:iconifiedByDefault="false"
+        android:layout_weight="1"
+        android:layout_margin="0dp"
+        android:queryBackground="@android:color/transparent"
+        android:submitBackground="@android:color/white"
+
         />
-    <TextView
+    <ImageButton
+        android:id="@+id/actionbar_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_title"
-        android:textSize="30sp"
-        android:textColor="@color/main_color"
-        android:text=" INU BUS"/>
+        android:background="@drawable/ic_vt_info"
+        android:text=""/>
+
+
 </LinearLayout>
