@@ -3,7 +3,6 @@
     <style name="AppTheme" parent="@style/AppBaseTheme">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@android:color/white</item>
         <item name="android:actionBarSize">@dimen/actionbar_height</item>
         <item name="actionBarSize">@dimen/actionbar_height</item>
@@ -19,7 +18,7 @@
     </style>
 
     <style name="MyTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/main_color</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
     <!-- 액션바 색상 지정 끝 -->
 
