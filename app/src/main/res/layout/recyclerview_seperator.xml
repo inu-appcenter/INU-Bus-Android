@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical" >
+
+    <TextView
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/seperator_height"
+        android:background="@color/seperator_bg"
+        android:textSize="@dimen/seperator_font_size"
+        android:fontFamily="@font/seoul_namsan_m"
+        android:paddingLeft="@dimen/recycler_margin_left"
+        android:text="간선, 좌석버스"
+        />
+
+</LinearLayout>

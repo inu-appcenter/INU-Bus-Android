@@ -5,25 +5,16 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.Animatable;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.TabLayout;
-import android.support.graphics.drawable.Animatable2Compat;
-import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
@@ -39,8 +30,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,33 +41,33 @@ public class BusInfoActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor sharedPreferencesEditor;
     private static final String TAG = "BusInfoActivity";
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
-    private BusInfoPagerAdapter pagerAdapter;
+//    private ViewPager viewPager;
+//    private TabLayout tabLayout;
+//    private BusInfoPagerAdapter pagerAdapter;
     private int selectedTab = 0;
     private boolean paused = false;
     private Context context = this;
-    private Handler mHandler = new Handler();
-    private Timer tmr;
-    private Runnable updateRemainingTimeRunnable = new Runnable() {
-        @Override
-        public void run() {
-            pagerAdapter.update();
-        }
-    };
+//    private Handler mHandler = new Handler();
+//    private Timer tmr;
+//    private Runnable updateRemainingTimeRunnable = new Runnable() {
+//        @Override
+//        public void run() {
+//            pagerAdapter.update();
+//        }
+//    };
     private SearchView mSearchView;
     private ActionBar actionBar;
 
     @Override
     protected void onResume() {
         super.onResume();
-        // 맨처음 Resume에서는 프래그먼트가 생성이 덜되어 업데이트를 할수 없다.
-        // 스플래시 액티비티때문에 한번 pause로 갔다오므로, 이를 이용해 스플래시 이후 업데이트를 수행한다.
-        if(paused){
-            for(int i = 0 ; i < pagerAdapter.getCount(); i++){
-                pagerAdapter.getItem(i).updateData();
-            }
-        }
+//        // 맨처음 Resume에서는 프래그먼트가 생성이 덜되어 업데이트를 할수 없다.
+//        // 스플래시 액티비티때문에 한번 pause로 갔다오므로, 이를 이용해 스플래시 이후 업데이트를 수행한다.
+//        if(paused){
+//            for(int i = 0 ; i < pagerAdapter.getCount(); i++){
+//                pagerAdapter.getItem(i).updateData();
+//            }
+//        }
     }
 
     @Override
@@ -107,92 +96,108 @@ public class BusInfoActivity extends AppCompatActivity {
         // 액션바 설정 끝
 
         // 탭 추가 및 기본 설정
-        tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        pagerAdapter = new BusInfoPagerAdapter(getSupportFragmentManager());
-        pagerAdapter.initFragment(this);
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.setOffscreenPageLimit(3);
-        viewPager.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        tabLayout.setupWithViewPager(viewPager);
-
-        // 커스텀 탭 생성
-        View tab0 = getLayoutInflater().inflate(R.layout.custom_businfo_tab, null);
-        View tab1 = getLayoutInflater().inflate(R.layout.custom_businfo_tab, null);
-        View tab2 = getLayoutInflater().inflate(R.layout.custom_businfo_tab, null);
-//        ((TextView)tab0.findViewById(R.id.tabText)).setText("자과대");
-//        ((TextView)tab1.findViewById(R.id.tabText)).setText("공대");
-//        ((TextView)tab2.findViewById(R.id.tabText)).setText("정문");
-
-        // 복잡한 벡터 애니메이션이 마시멜로우 이하에서는 제대로 표시가안됨.
-        if(Build.VERSION.SDK_INT >= 25) {
-            // 탭 아이콘 애니메이션 설정
+//        tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+//        viewPager = (ViewPager) findViewById(R.id.viewpager);
+//        pagerAdapter = new BusInfoPagerAdapter(getSupportFragmentManager());
+//        pagerAdapter.initFragment(this);
+//        viewPager.setAdapter(pagerAdapter);
+//        viewPager.setOffscreenPageLimit(3);
+//        viewPager.setOverScrollMode(View.OVER_SCROLL_NEVER);
+//        tabLayout.setupWithViewPager(viewPager);
+//
+//        // 커스텀 탭 생성
+//        View tab0 = getLayoutInflater().inflate(R.layout.custom_businfo_tab, null);
+//        View tab1 = getLayoutInflater().inflate(R.layout.custom_businfo_tab, null);
+//        View tab2 = getLayoutInflater().inflate(R.layout.custom_businfo_tab, null);
+////        ((TextView)tab0.findViewById(R.id.tabText)).setText("자과대");
+////        ((TextView)tab1.findViewById(R.id.tabText)).setText("공대");
+////        ((TextView)tab2.findViewById(R.id.tabText)).setText("정문");
+//
+//        // 복잡한 벡터 애니메이션이 마시멜로우 이하에서는 제대로 표시가안됨.
+//        if(Build.VERSION.SDK_INT >= 25) {
+//            // 탭 아이콘 애니메이션 설정
+////            ((ImageView)tab0.findViewById(R.id.tabIcon)).setImageResource(R.drawable.ic_anim_science);
+//            ((ImageView)tab1.findViewById(R.id.tabIcon)).setImageResource(R.drawable.ic_anim_engineer);
+//            ((ImageView)tab2.findViewById(R.id.tabIcon)).setImageResource(R.drawable.ic_anim_frontgate);
+//
+//            // v23은 애니메이션에 반복 속성을 적용 못해서 수동으로 반복해준다. Animatable하위 객체대신, AnimatedVectorDrawableCompat을 써야 마시멜로, 누가 둘다 작동 한다.
+//            final AnimatedVectorDrawableCompat animatedVectorDrawableCompat = AnimatedVectorDrawableCompat.create(context, R.drawable.ic_anim_science);
+//            ((ImageView)tab0.findViewById(R.id.tabIcon)).setImageDrawable(animatedVectorDrawableCompat);
+//            animatedVectorDrawableCompat.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
+//                @Override
+//                public void onAnimationEnd(Drawable drawable) {
+//                    super.onAnimationEnd(drawable);
+//                    if(selectedTab == 0) {
+//                        super.onAnimationEnd(drawable);
+//                        if(animatedVectorDrawableCompat.isRunning()){
+//                            animatedVectorDrawableCompat.stop();
+//                        }
+//                        else{
+//                            animatedVectorDrawableCompat.start();
+//                        }
+//                    }
+//                }
+//            });
+//        }
+//        else {
 //            ((ImageView)tab0.findViewById(R.id.tabIcon)).setImageResource(R.drawable.ic_anim_science);
-            ((ImageView)tab1.findViewById(R.id.tabIcon)).setImageResource(R.drawable.ic_anim_engineer);
-            ((ImageView)tab2.findViewById(R.id.tabIcon)).setImageResource(R.drawable.ic_anim_frontgate);
-
-            // v23은 애니메이션에 반복 속성을 적용 못해서 수동으로 반복해준다. Animatable하위 객체대신, AnimatedVectorDrawableCompat을 써야 마시멜로, 누가 둘다 작동 한다.
-            final AnimatedVectorDrawableCompat animatedVectorDrawableCompat = AnimatedVectorDrawableCompat.create(context, R.drawable.ic_anim_science);
-            ((ImageView)tab0.findViewById(R.id.tabIcon)).setImageDrawable(animatedVectorDrawableCompat);
-            animatedVectorDrawableCompat.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
-                @Override
-                public void onAnimationEnd(Drawable drawable) {
-                    super.onAnimationEnd(drawable);
-                    if(selectedTab == 0) {
-                        super.onAnimationEnd(drawable);
-                        if(animatedVectorDrawableCompat.isRunning()){
-                            animatedVectorDrawableCompat.stop();
-                        }
-                        else{
-                            animatedVectorDrawableCompat.start();
-                        }
-                    }
-                }
-            });
-        }
-        else {
-            ((ImageView)tab0.findViewById(R.id.tabIcon)).setImageResource(R.drawable.ic_anim_science);
-            ((ImageView)tab1.findViewById(R.id.tabIcon)).setImageResource(R.drawable.ic_anim_engineer);
-            ((ImageView)tab2.findViewById(R.id.tabIcon)).setImageResource(R.drawable.ic_anim_frontgate);
-        }
-        tabLayout.getTabAt(0).setCustomView(tab0);
-        tabLayout.getTabAt(1).setCustomView(tab1);
-        tabLayout.getTabAt(2).setCustomView(tab2);
-        tabLayout.getTabAt(0).setTag(0);
-        tabLayout.getTabAt(1).setTag(1);
-        tabLayout.getTabAt(2).setTag(2);
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                ((Animatable)((ImageView)tab.getCustomView().findViewById(R.id.tabIcon)).getDrawable()).start();
-                selectedTab = (int)tab.getTag();
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                ((Animatable)((ImageView)tab.getCustomView().findViewById(R.id.tabIcon)).getDrawable()).stop();
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                ((Animatable)((ImageView)tab.getCustomView().findViewById(R.id.tabIcon)).getDrawable()).start();
-            }
-        });
-
-        // 초기 탭 설정
-        tabLayout.getTabAt(1).select();
-        selectedTab = 1;
+//            ((ImageView)tab1.findViewById(R.id.tabIcon)).setImageResource(R.drawable.ic_anim_engineer);
+//            ((ImageView)tab2.findViewById(R.id.tabIcon)).setImageResource(R.drawable.ic_anim_frontgate);
+//        }
+//        tabLayout.getTabAt(0).setCustomView(tab0);
+//        tabLayout.getTabAt(1).setCustomView(tab1);
+//        tabLayout.getTabAt(2).setCustomView(tab2);
+//        tabLayout.getTabAt(0).setTag(0);
+//        tabLayout.getTabAt(1).setTag(1);
+//        tabLayout.getTabAt(2).setTag(2);
+//
+//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                ((Animatable)((ImageView)tab.getCustomView().findViewById(R.id.tabIcon)).getDrawable()).start();
+//                selectedTab = (int)tab.getTag();
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//                ((Animatable)((ImageView)tab.getCustomView().findViewById(R.id.tabIcon)).getDrawable()).stop();
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//                ((Animatable)((ImageView)tab.getCustomView().findViewById(R.id.tabIcon)).getDrawable()).start();
+//            }
+//        });
+//
+//        // 초기 탭 설정
+//        tabLayout.getTabAt(1).select();
+//        selectedTab = 1;
 
         showNotices();
 
-        Timer tmr = new Timer();
-        tmr.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                mHandler.post(updateRemainingTimeRunnable);
+        RecyclerView rv = new RecyclerView(this);
+        rv.setHasFixedSize(true);
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        rv.setLayoutManager(mLayoutManager);
+
+        CustomAdapter adapter = new CustomAdapter();
+        for (int i = 1; i < 30; i++) {
+            if (i % 4 == 0) {
+                adapter.addSectionHeader(""+i);
             }
-        }, 1000, 30000);
+            adapter.addItem("" + i,"","");
+        }
+        rv.setAdapter(adapter);
+        setContentView(rv);
+
+//        Timer tmr = new Timer();
+//        tmr.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                mHandler.post(updateRemainingTimeRunnable);
+//            }
+//        }, 1000, 30000);
     }
 
     private void showNotices(){
@@ -225,7 +230,6 @@ public class BusInfoActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JsonArray> call, Throwable t) {
-
             }
         });
     }

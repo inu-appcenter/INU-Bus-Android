@@ -1,39 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--노티바 색상 sdk23부터 커스텀가능-->
-    <color name="colorPrimaryDark">#000000</color>
-    <color name="colorPrimaryDark_v23">#3179bd</color>
-
     <!--액션바-->
     <color name="colorPrimary">#3179bd</color>
+    <color name="colorAccent">@color/colorPrimary</color>
+
+    <!--노티바 색상 sdk23부터 커스텀가능-->
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorPrimaryDark_v23">@color/colorPrimary</color>
+
     <!--앱 배경-->
     <color name="windowBackground">#ffffff</color>
     <color name="navigationBarColor">#FFFFFF</color>
-    <color name="colorAccent">@color/main_color</color>
-
-    <!-- 액션바 타이틀, 탭 아이콘 색상,-->
-
-    <color name="main_color">@color/my_blue</color>
-    <color name="my_blue">#4A7AC2</color>
-    <color name="inu_blue">#014999</color>
-    <color name="tire_gray">#9E9E9E</color>
-
-    <integer-array name="logo_i_color">
-        <item>@color/my_blue</item>
-        <item>@color/my_blue</item>
-    </integer-array>
-
-    <integer-array name="logo_n_color">
-        <item>@color/my_blue</item>
-    </integer-array>
-
-    <integer-array name="logo_u_color">
-        <item>@color/my_blue</item>
-    </integer-array>
 
     <color name="광역">@android:color/holo_red_light</color>
     <color name="광역급행">@android:color/holo_blue_light</color>
     <color name="간선급행">@android:color/holo_purple</color>
+
     <color name="search_hint">#565656</color>
+    <color name="seperator_bg">#EBEBEB</color>
 
 </resources>

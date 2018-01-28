@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginLeft="@dimen/recycler_margin_left"
+    android:gravity="center_vertical" >
+
+    <CheckBox
+        android:layout_width="@dimen/bus_favicon_size"
+        android:layout_height="@dimen/bus_favicon_size"
+        android:button="@null"
+        android:background="@drawable/custom_checkbox_design" />
+
+    <TextView
+        android:id="@+id/recycler_busno"
+        android:layout_width="@dimen/bus_num_width"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/bus_num_margin_left"
+        android:layout_marginTop="@dimen/bus_num_margin_top"
+        android:layout_marginBottom="@dimen/bus_num_margin_bottom"
+        android:textSize="@dimen/bus_num_textsize"
+        android:fontFamily="@font/seoul_namsan_m"
+        android:text="780"
+        />
+
+    <TextView
+        android:id="@+id/recycler_arrival"
+        android:layout_width="@dimen/bus_num_info_width"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/bus_num_info_textsize"
+        android:fontFamily="@font/seoul_namsan_m"
+        android:text="6분 30초"
+        />
+
+    <TextView
+        android:id="@+id/recycler_interval"
+        android:layout_width="@dimen/bus_num_info_width"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/bus_num_info_textsize"
+        android:fontFamily="@font/seoul_namsan_m"
+        android:text="10~18분"
+        />
+
+</LinearLayout>
