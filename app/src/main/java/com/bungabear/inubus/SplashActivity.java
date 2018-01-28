@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Created by minjae on 2017-08-09.
@@ -16,7 +17,7 @@ import android.widget.ImageView;
 public class SplashActivity extends AppCompatActivity {
 
     private ImageView splashLogo;
-    private ImageView splashText;
+    private TextView splashText;
 
     private long fade_duration = 1000;
 
@@ -27,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
 
         splashLogo = (ImageView) findViewById(R.id.iv_splash_logo);
         splashLogo.setAlpha(0f);
-        splashText = (ImageView) findViewById(R.id.iv_splash_text);
+        splashText = (TextView) findViewById(R.id.iv_splash_text);
         splashText.setAlpha(0f);
 
         splashText.animate()

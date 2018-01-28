@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.graphics.drawable.Animatable2Compat;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
@@ -93,46 +94,15 @@ public class BusInfoActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("dialog", MODE_PRIVATE);
         sharedPreferencesEditor = sharedPreferences.edit();
 
-
-        // 커스텀 액션바 설정
-        LinearLayout actionbar = (LinearLayout) getLayoutInflater().inflate(R.layout.custom_actionbar, null);
-        mSearchView = actionbar.findViewById(R.id.actionbar_searchview);
-//        LinearLayout.LayoutParams llp = (LinearLayout.LayoutParams) mSearchView.getLayoutParams();
-//        llp.setMargins(0,0,0,0);
-//        mSearchView.setLayoutParams(llp);
-
-        int search_plate = getResources().getIdentifier("search_plate", "id", "android");
-        LinearLayout v = (LinearLayout) mSearchView.findViewById(search_plate);
-        v.setBackgroundColor(Color.TRANSPARENT);
-
-//        int search_edit_frame = getResources().getIdentifier("search_edit_frame", "id", "android");
-//        LinearLayout lllv = (LinearLayout) mSearchView.findViewById(search_edit_frame);
-//        LinearLayout.LayoutParams lllvp = (LinearLayout.LayoutParams) lllv.getLayoutParams();
-//        lllvp.setMargins(0,0,0,0);
-//        lllv.setLayoutParams(lllvp);
-
-        int search_src_text = getResources().getIdentifier("search_src_text", "id", "android");
-        EditText mSearchView_et = mSearchView.findViewById(search_src_text);
-        mSearchView_et.setTextColor(Color.BLACK);
-        mSearchView_et.setBackgroundColor(Color.WHITE);
-        mSearchView_et.setHintTextColor(Color.GRAY);
-        mSearchView_et.setHint("버스정류장 검색");
-
-        int searchMagIcon = getResources().getIdentifier("search_mag_icon", "id", "android");
-        ImageView icon = (ImageView) mSearchView.findViewById(searchMagIcon);
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) icon.getLayoutParams();
-        params.setMargins(0,0,0,0);
-        icon.setLayoutParams(params);
-
+        // 액션바 설정
         actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayUseLogoEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(actionbar);
-
-        Toolbar parent =(Toolbar) actionbar.getParent();
+        actionBar.setCustomView(R.layout.custom_actionbar);
+        Toolbar parent =(Toolbar) actionBar.getCustomView().getParent();
         parent.setContentInsetsAbsolute(0,0);
         // 액션바 설정 끝
 

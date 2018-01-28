@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <dimen name="actionbar_height">41dp</dimen>
+    <dimen name="searchview_height">24.5dp</dimen>
+    <dimen name="searchview_width">257.66dp</dimen>
+    <dimen name="searchview_magicon_size">14.7dp</dimen>
+    <dimen name="searchview_magicon_margin_left">14.7dp</dimen>
+    <dimen name="searchview_magicon_margin_right">8.92dp</dimen>
+    <dimen name="searchview_textsize">12.4dp</dimen>
+    <dimen name="searchview_margin_left">11.26dp</dimen>
+    <dimen name="searchview_margin_top">6dp</dimen>
+    <dimen name="searchview_margin_bottom">6dp</dimen>
+    <dimen name="infoicon_size">22.5dp</dimen>
+    <dimen name="infoicon_margin_right">7dp</dimen>
 </resources>
