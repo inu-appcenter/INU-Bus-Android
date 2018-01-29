@@ -58,23 +58,11 @@ public class MainActiviry extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 액션바 설정
-        // TODO toolbar로 코드 단축, xml화 하기
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayUseLogoEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(R.layout.custom_actionbar);
-        Toolbar parent =(Toolbar) actionBar.getCustomView().getParent();
-        parent.setContentInsetsAbsolute(0,0);
-        // 액션바 설정 끝
-
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
         drawer.findViewById(R.id.nvView);
-
-        infoButton = (ImageView) getSupportActionBar().getCustomView().findViewById(R.id.actionbar_btn_info);
+        infoButton = (ImageView) toolbar.findViewById(R.id.actionbar_btn_info);
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

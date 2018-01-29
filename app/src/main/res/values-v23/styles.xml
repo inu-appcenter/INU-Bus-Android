@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppTheme" parent="@style/AppBaseTheme">
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light">
         <!--<item name="android:actionBarStyle">@style/MyActionBar</item>-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_v23</item>
@@ -9,6 +9,8 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="android:actionBarSize">@dimen/actionbar_height</item>
         <item name="actionBarSize">@dimen/actionbar_height</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <!--<item name="android:navigationBarColor">@android:color/white</item>-->
 
         <!-- 스테이터스바 아이콘을 밝은색으로.-->
@@ -24,7 +26,5 @@
         <!--<item name="android:navigationBarColor">@android:color/white</item>-->
 
     </style>
-
-
 
 </resources>

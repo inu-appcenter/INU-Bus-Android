@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/actionbar_height"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="0dp"
     android:background="@color/colorPrimary">
 
+    <!-- 더미 포커스 삭제금지 -->
     <ImageView
         android:id="@+id/iv_magicon"
         android:layout_width="@dimen/searchview_magicon_size"
@@ -18,8 +19,10 @@
         app:layout_constraintRight_toLeftOf="@id/search_view"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginLeft="@dimen/searchview_magicon_margin_left"
-        android:layout_marginRight="@dimen/searchview_magicon_margin_right"/>
-
+        android:layout_marginRight="@dimen/searchview_magicon_margin_right"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        />
 
     <AutoCompleteTextView
         android:id="@+id/search_view"
@@ -40,7 +43,6 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-
     <ImageView
         android:id="@+id/actionbar_btn_info"
         android:layout_width="@dimen/infoicon_size"
@@ -53,6 +55,5 @@
         android:layout_marginRight="@dimen/infoicon_margin_right"
         android:layout_marginLeft="@dimen/infoicon_margin_right"
         />
-
 
 </android.support.constraint.ConstraintLayout>
