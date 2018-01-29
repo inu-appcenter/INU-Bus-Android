@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -52,16 +53,19 @@ public class MainActiviry extends AppCompatActivity {
     private ToggleButton fragmenetToggle;
     private ActionBar actionBar;
     private DrawerLayout drawer;
+    private AutoCompleteTextView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 툴바 등록
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        
+        // Navigation Drawer 추가.
         drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
-        drawer.findViewById(R.id.nvView);
         infoButton = (ImageView) toolbar.findViewById(R.id.actionbar_btn_info);
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,19 +73,38 @@ public class MainActiviry extends AppCompatActivity {
                 boolean opened = drawer.isDrawerOpen(Gravity.RIGHT);
                 if(opened){
                     drawer.closeDrawer(Gravity.RIGHT);
-                    AnimatedVectorDrawableCompat animatedVectorDrawableCompat = AnimatedVectorDrawableCompat.create(context, R.drawable.ic_toolbar_close_to_info);
-                    infoButton.setImageDrawable(animatedVectorDrawableCompat);
-                    animatedVectorDrawableCompat.start();
                 }
                 else {
                     drawer.openDrawer(Gravity.RIGHT);
-                    AnimatedVectorDrawableCompat animatedVectorDrawableCompat = AnimatedVectorDrawableCompat.create(context, R.drawable.ic_toolbar_info_to_close);
+                }
+            }
+        });
+        
+        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {}
+            @Override
+            public void onDrawerOpened(View drawerView) {}
+            @Override
+            public void onDrawerClosed(View drawerView) {}
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                if(newState == 2){
+                    int id;
+                    if(drawer.isDrawerOpen(Gravity.RIGHT)){
+                        id = R.drawable.ic_toolbar_close_to_info;
+                    }
+                    else {
+                        id = R.drawable.ic_toolbar_info_to_close;
+                    }
+                    AnimatedVectorDrawableCompat animatedVectorDrawableCompat = AnimatedVectorDrawableCompat.create(context, id);
                     infoButton.setImageDrawable(animatedVectorDrawableCompat);
                     animatedVectorDrawableCompat.start();
                 }
             }
         });
 
+        fragmenetToggle = (ToggleButton)findViewById(R.id.fragment_toggle);
         arrivalFragment = new ArrivalFragment();
         destinationFragment = new DestinationFragment();
 
@@ -90,7 +113,6 @@ public class MainActiviry extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragment_view, arrivalFragment);
         fragmentTransaction.commit();
 
-        fragmenetToggle = (ToggleButton)findViewById(R.id.fragment_toggle);
         fragmenetToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -106,6 +128,16 @@ public class MainActiviry extends AppCompatActivity {
         sharedPreferencesEditor = sharedPreferences.edit();
 
         showNotices();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawer.isDrawerOpen(Gravity.RIGHT)){
+            drawer.closeDrawer(Gravity.RIGHT);
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
     private void showNotices(){
