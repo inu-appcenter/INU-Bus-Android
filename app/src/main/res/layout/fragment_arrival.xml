@@ -6,7 +6,7 @@
     android:layout_marginTop="@dimen/arrival_margin_top"
     android:orientation="vertical">
 
-    <com.bungabear.inubus.SwipeRemovableViewPager
+    <com.bungabear.inubus.Custom.SwipeRemovableViewPager
         android:id="@+id/arrival_viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

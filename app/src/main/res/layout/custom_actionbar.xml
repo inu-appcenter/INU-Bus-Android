@@ -28,7 +28,7 @@
         android:id="@+id/search_view"
         android:layout_width="0dp"
         android:layout_height="@dimen/searchview_height"
-        android:background="@drawable/rounded_coner"
+        android:background="@drawable/bg_rounded_coner"
         android:hint="@string/search_hint"
         android:textColor="@android:color/black"
         android:textColorHint="@color/search_hint"

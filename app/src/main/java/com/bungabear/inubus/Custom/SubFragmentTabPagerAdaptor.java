@@ -1,10 +1,12 @@
-package com.bungabear.inubus;
+package com.bungabear.inubus.Custom;
 
 import android.content.Context;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.bungabear.inubus.Fragment.ArrivalSubFragment;
 
 import java.util.ArrayList;
 

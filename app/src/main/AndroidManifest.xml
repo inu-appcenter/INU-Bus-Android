@@ -15,12 +15,12 @@
         >
 
         <activity
-            android:name=".MainActiviry"
+            android:name=".Activity.MainActiviry"
             android:screenOrientation="portrait">
         </activity>
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".Activity.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             >

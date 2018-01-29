@@ -10,7 +10,7 @@
         android:layout_width="@dimen/bus_favicon_size"
         android:layout_height="@dimen/bus_favicon_size"
         android:button="@null"
-        android:background="@drawable/custom_checkbox_design" />
+        android:background="@drawable/custom_checkbox_favorite" />
 
     <TextView
         android:id="@+id/recycler_busno"

@@ -1,4 +1,4 @@
-package com.bungabear.inubus;
+package com.bungabear.inubus.Activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bungabear.inubus.R;
 
 /**
  * Created by minjae on 2017-08-09.

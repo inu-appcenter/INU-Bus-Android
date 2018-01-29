@@ -1,4 +1,4 @@
-package com.bungabear.inubus;
+package com.bungabear.inubus.Activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +18,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -26,6 +26,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.bungabear.inubus.Fragment.ArrivalFragment;
+import com.bungabear.inubus.Fragment.DestinationFragment;
+import com.bungabear.inubus.R;
+import com.bungabear.inubus.RetrofitClass;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -51,7 +55,7 @@ public class MainActiviry extends AppCompatActivity {
     private Fragment arrivalFragment, destinationFragment;
     private Context context = this;
     private ToggleButton fragmenetToggle;
-    private ActionBar actionBar;
+    private Toolbar toolbar;
     private DrawerLayout drawer;
     private AutoCompleteTextView searchView;
 
@@ -60,51 +64,21 @@ public class MainActiviry extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 툴바 등록
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        
-        // Navigation Drawer 추가.
+        toolbar = findViewById(R.id.toolbar);
         drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
-        infoButton = (ImageView) toolbar.findViewById(R.id.actionbar_btn_info);
-        infoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean opened = drawer.isDrawerOpen(Gravity.RIGHT);
-                if(opened){
-                    drawer.closeDrawer(Gravity.RIGHT);
-                }
-                else {
-                    drawer.openDrawer(Gravity.RIGHT);
-                }
-            }
-        });
-        
-        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {}
-            @Override
-            public void onDrawerOpened(View drawerView) {}
-            @Override
-            public void onDrawerClosed(View drawerView) {}
-            @Override
-            public void onDrawerStateChanged(int newState) {
-                if(newState == 2){
-                    int id;
-                    if(drawer.isDrawerOpen(Gravity.RIGHT)){
-                        id = R.drawable.ic_toolbar_close_to_info;
-                    }
-                    else {
-                        id = R.drawable.ic_toolbar_info_to_close;
-                    }
-                    AnimatedVectorDrawableCompat animatedVectorDrawableCompat = AnimatedVectorDrawableCompat.create(context, id);
-                    infoButton.setImageDrawable(animatedVectorDrawableCompat);
-                    animatedVectorDrawableCompat.start();
-                }
-            }
-        });
-
         fragmenetToggle = (ToggleButton)findViewById(R.id.fragment_toggle);
+
+        setSupportActionBar(toolbar);
+        setNavigationDrawer();
+        setFragmentToggle();
+
+        sharedPreferences = getSharedPreferences("dialog", MODE_PRIVATE);
+        sharedPreferencesEditor = sharedPreferences.edit();
+
+        showNotices();
+    }
+
+    private void setFragmentToggle() {
         arrivalFragment = new ArrivalFragment();
         destinationFragment = new DestinationFragment();
 
@@ -123,11 +97,40 @@ public class MainActiviry extends AppCompatActivity {
                 fragmentTransaction.commit();
             }
         });
+    }
 
-        sharedPreferences = getSharedPreferences("dialog", MODE_PRIVATE);
-        sharedPreferencesEditor = sharedPreferences.edit();
+    private void setNavigationDrawer() {
+        infoButton = (ImageView) toolbar.findViewById(R.id.actionbar_btn_info);
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean opened = drawer.isDrawerOpen(Gravity.RIGHT);
+                if(opened){
+                    drawer.closeDrawer(Gravity.RIGHT);
+                }
+                else {
+                    drawer.openDrawer(Gravity.RIGHT);
+                }
+            }
+        });
 
-        showNotices();
+        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {}
+            @Override
+            public void onDrawerOpened(View drawerView) {}
+            @Override
+            public void onDrawerClosed(View drawerView) {}
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                if(newState == 2){
+                    int id = drawer.isDrawerOpen(Gravity.RIGHT) ? R.drawable.ic_toolbar_close_to_info : R.drawable.ic_toolbar_info_to_close;
+                    AnimatedVectorDrawableCompat animatedVectorDrawableCompat = AnimatedVectorDrawableCompat.create(context, id);
+                    infoButton.setImageDrawable(animatedVectorDrawableCompat);
+                    animatedVectorDrawableCompat.start();
+                }
+            }
+        });
     }
 
     @Override

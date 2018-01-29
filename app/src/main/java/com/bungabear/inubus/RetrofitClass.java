@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.Retrofit.Builder;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-class RetrofitClass
+public class RetrofitClass
 {
     private static final boolean DEBUG = false;
     private static final String TAG = "Retrofit Debug";

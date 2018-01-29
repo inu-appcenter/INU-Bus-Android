@@ -1,4 +1,4 @@
-package com.bungabear.inubus;
+package com.bungabear.inubus.Custom;
 
 /**
  * Created by Bunga on 2018-01-29.
@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bungabear.inubus.R;
 
 import java.util.ArrayList;
 
