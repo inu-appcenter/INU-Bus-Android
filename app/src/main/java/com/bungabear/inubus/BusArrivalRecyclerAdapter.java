@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class CustomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class BusArrivalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<CustomItem> mDataset = new ArrayList<CustomItem>();
     public class CustomItem {
         public boolean isSectionHeader;

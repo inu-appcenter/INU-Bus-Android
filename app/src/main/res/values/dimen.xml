@@ -32,4 +32,15 @@
 
     <dimen name="bus_favicon_padding">2.34dp</dimen>
     <dimen name="bus_favicon_size">14.126dp</dimen>
+
+    <dimen name="toggle_width">120.22406dp</dimen>
+    <dimen name="toggle_height">20.8dp</dimen>
+    <dimen name="toggle_margin_top">10.66dp</dimen>
+
+    <dimen name="arrival_margin_top">17.6dp</dimen>
+    <dimen name="arrival_tabbar_height">41.34dp</dimen>
+
+    <dimen name="destination_margin_top">15dp</dimen>
+
+    <dimen name="info_drawer_width">207.72dp</dimen>
 </resources>

@@ -12,7 +12,7 @@
         android:layout_width="@dimen/searchview_magicon_size"
         android:layout_height="@dimen/searchview_magicon_size"
         android:adjustViewBounds="false"
-        android:src="@drawable/ic_magicon"
+        android:src="@drawable/ic_toolbar_magicon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/search_view"
@@ -25,7 +25,7 @@
         android:id="@+id/search_view"
         android:layout_width="0dp"
         android:layout_height="@dimen/searchview_height"
-        android:background="@android:color/white"
+        android:background="@drawable/rounded_coner"
         android:hint="@string/search_hint"
         android:textColor="@android:color/black"
         android:textColorHint="@color/search_hint"
@@ -36,16 +36,16 @@
         android:paddingTop="@dimen/searchview_margin_top"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/iv_magicon"
-        app:layout_constraintRight_toLeftOf="@+id/actionbar_info"
+        app:layout_constraintRight_toLeftOf="@+id/actionbar_btn_info"
         app:layout_constraintTop_toTopOf="parent"
         />
 
 
-    <Button
-        android:id="@+id/actionbar_info"
+    <ImageView
+        android:id="@+id/actionbar_btn_info"
         android:layout_width="@dimen/infoicon_size"
         android:layout_height="@dimen/infoicon_size"
-        android:background="@drawable/ic_vt_info"
+        android:src="@drawable/ic_toolbar_info_to_close"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"

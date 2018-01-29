@@ -15,7 +15,7 @@
         >
 
         <activity
-            android:name=".BusInfoActivity"
+            android:name=".MainActiviry"
             android:screenOrientation="portrait">
         </activity>
 

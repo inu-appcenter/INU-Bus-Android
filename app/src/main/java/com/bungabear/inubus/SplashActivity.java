@@ -40,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
                 .setListener(new AnimatorListenerAdapter() {
                                  @Override
                                  public void onAnimationEnd(Animator animation) {
-                                     startActivity(new Intent(getApplicationContext(), BusInfoActivity.class));
+                                     startActivity(new Intent(getApplicationContext(), MainActiviry.class));
                                      finish();
                                      // 액티비티 전환 애니메이션을 페이드로 변경한다
                                      overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
