@@ -7,15 +7,26 @@
     <!-- 앱 아이콘도 벡터이미지를 지원하지만, SDK 22이하는 계단현상이 심하여 직접 변환해 넣어준다.. -->
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_logo"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_logo"
+        android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
         >
 
         <activity
             android:name=".Activity.MainActiviry"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".Activity.RouteActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name=".Activity.AskActivity"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
         </activity>
 

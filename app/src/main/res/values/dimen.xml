@@ -43,4 +43,7 @@
     <dimen name="destination_margin_top">15dp</dimen>
 
     <dimen name="info_drawer_width">207.72dp</dimen>
+    
+    <dimen name="dialog_width">164dp</dimen>
+    <!--<dimen name="dialog_height">238.8dp</dimen>-->
 </resources>

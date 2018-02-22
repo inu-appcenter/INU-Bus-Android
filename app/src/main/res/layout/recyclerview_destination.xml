@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:paddingLeft="34.5dp"
+    >
+    <LinearLayout
+        android:id="@+id/recycler_destination_linear"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="908"-->
+            <!--android:textColor="@color/간선급행"-->
+            <!--android:fontFamily="@font/source_sans_roman_regula"-->
+            <!--android:textSize="18sp"-->
+            <!--android:paddingRight="8dp"/>-->
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="909"-->
+            <!--android:fontFamily="@font/source_sans_roman_regula"-->
+            <!--android:textColor="@color/간선급행"-->
+            <!--android:textSize="18sp"-->
+            <!--android:paddingRight="8dp"/>-->
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

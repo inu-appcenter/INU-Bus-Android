@@ -15,7 +15,27 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="buttonBarStyle">@style/buttonBarStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/buttonBarButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/buttonBarButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/buttonBarButtonStyle</item>
     </style>
+
+    <style name="buttonBarStyle" >
+        <item name="android:background">@color/colorPrimary</item>
+        <!--<item name="android:height">27.5dp</item>-->
+    </style>
+
+    <style name="buttonBarButtonStyle" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <!--<style name="buttonBarButtonStyle.Positive">-->
+
+    <!--</style>-->
+
+
 
     <!-- 스플래시 화면을 위한 액션바 없는 테마 -->
     <style name="AppTheme.Splash" parent="Theme.AppCompat.Light.NoActionBar">

@@ -1,7 +1,8 @@
 package com.bungabear.inubus.Activity;
 
+import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,7 +47,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 // TODO 서버의 갱신 주기와 시간을 비교해 자동으로 정보를 업데이트 하도록 한다.
-// TODO 문의, 건의 기능 추가. 가능하면 로그도 첨부
 public class MainActiviry extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor sharedPreferencesEditor;
@@ -58,6 +58,7 @@ public class MainActiviry extends AppCompatActivity {
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private AutoCompleteTextView searchView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,12 @@ public class MainActiviry extends AppCompatActivity {
         setNavigationDrawer();
         setFragmentToggle();
 
+        String[] items = { "SM3", "SM5", "SM7", "SONATA", "AVANTE", "SOUL", "K5",
+                "K7" };
+        searchView = (AutoCompleteTextView) findViewById(R.id.search_view);
+        searchView.setAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, items));
+
         sharedPreferences = getSharedPreferences("dialog", MODE_PRIVATE);
         sharedPreferencesEditor = sharedPreferences.edit();
 
@@ -80,7 +87,7 @@ public class MainActiviry extends AppCompatActivity {
 
     private void setFragmentToggle() {
         arrivalFragment = new ArrivalFragment();
-        destinationFragment = new DestinationFragment();
+        destinationFragment = DestinationFragment.newInstance(this);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -131,6 +138,16 @@ public class MainActiviry extends AppCompatActivity {
                 }
             }
         });
+
+        TextView askButton = drawer.findViewById(R.id.drawer_btn_ask);
+        askButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AskActivity.class);
+                startActivity(intent);
+                AskActivity.setPreView(drawer);
+            }
+        });
     }
 
     @Override
@@ -179,21 +196,41 @@ public class MainActiviry extends AppCompatActivity {
 
     private void showNotice(final JsonObject json){
         // 거절 기록에서 millis와 버전을 가져와 비교한다. 버전이 바뀌었으면 무조건 표시한다.
-        long rejectDate = sharedPreferences.getLong(json.get("id").getAsString(),0);
+//        long rejectDate = sharedPreferences.getLong(json.get("id").getAsString(),0);
         int rejectVerion = sharedPreferences.getInt(json.get("id").getAsString()+"v",0);
-        if(rejectDate/(1000*60*24) < System.currentTimeMillis()/(1000*60*24) || rejectVerion != json.get("version").getAsInt()) {
-            // 얼럿 다이얼로그를 써야 테마를 지정하기 쉽다.
-            AlertDialog.Builder builder =
-                    new AlertDialog.Builder(context, R.style.AppTheme_Dialog);
-
-            // 커스텀뷰 생성.
-            // 커스텀뷰가 메세지뷰 밑에 추가되므로, 이미지 아래에 메세지를 넣기위해 이미지뷰, 텍스트뷰 순으로 레이아웃을 만듦.
+//        if(rejectDate/(1000*60*24) < System.currentTimeMillis()/(1000*60*24) || rejectVerion != json.get("version").getAsInt()) {
+        if(rejectVerion != json.get("version").getAsInt()){
             LayoutInflater layoutInflater = LayoutInflater.from(context);
             LinearLayout dialogLayout = (LinearLayout) layoutInflater.inflate(R.layout.custom_notice_dialog, null);
-            builder.setView(dialogLayout);
+//            AlertDialog dialog = new AlertDialog.Builder(context).create();
+            final Dialog dialog = new Dialog(context);
+            dialog.setContentView(dialogLayout);
+            TextView title = dialogLayout.findViewById(R.id.dialog_title);
+            ImageView imageView = dialogLayout.findViewById(R.id.dialog_imageview);
+            TextView content = dialogLayout.findViewById(R.id.dialog_content);
+            Button leftButton = dialogLayout.findViewById(R.id.dialog_leftButton);
+            Button rightButton = dialogLayout.findViewById(R.id.dialog_rightButton);
+            leftButton.setText("닫기");
+            leftButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.cancel();
+                }
+            });
+            rightButton.setText("다시보지않기");
+            rightButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sharedPreferencesEditor.putLong(json.get("id").getAsString(), System.currentTimeMillis());
+                    sharedPreferencesEditor.putInt(json.get("id").getAsString()+"v", json.get("version").getAsInt());
+                    sharedPreferencesEditor.apply();
+                    dialog.cancel();
+                }
+            });
+            title.setText(json.get("title").getAsString());
+            content.setText(json.get("content").getAsString());
 
             // 이미지 url이 있으면 이미지 로드
-            ImageView imageView = (ImageView) dialogLayout.findViewById(R.id.dialog_notice_imageview);
             if (!json.get("image").getAsString().equals("")) {
                 Bitmap bitmap = getImageUrl(json.get("image").getAsString());
                 if (bitmap != null) {
@@ -202,23 +239,7 @@ public class MainActiviry extends AppCompatActivity {
                     imageView.setVisibility(View.VISIBLE);
                 }
             }
-            TextView content = (TextView)dialogLayout.findViewById(R.id.dialog_notice_content);
-            content.setText(json.get("content").getAsString());
-
-            builder.setTitle(json.get("title").getAsString());
-            builder.setPositiveButton("확인", null);
-            builder.setNeutralButton("하룻동안 보이지 않기", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // SharedPreferences에 선택 저장.
-                    // key : ${id}, value : currentmillis
-                    // key : ${id}v, value : ${version}
-                    sharedPreferencesEditor.putLong(json.get("id").getAsString(), System.currentTimeMillis());
-                    sharedPreferencesEditor.putInt(json.get("id").getAsString()+"v", json.get("version").getAsInt());
-                    sharedPreferencesEditor.apply();
-                }
-            });
-            builder.show();
+            dialog.show();
         }
     }
 

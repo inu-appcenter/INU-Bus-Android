@@ -56,7 +56,7 @@
             android:layout_gravity="right"
             android:background="@android:color/white">
 
-            <include layout="@layout/custom_info_navigationview"/>
+            <include layout="@layout/custom_info_drawer"/>
 
         </android.support.design.widget.NavigationView>
     </android.support.v4.widget.DrawerLayout>

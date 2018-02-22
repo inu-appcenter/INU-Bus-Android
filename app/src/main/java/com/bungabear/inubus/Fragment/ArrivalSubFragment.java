@@ -3,6 +3,7 @@ package com.bungabear.inubus.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.bungabear.inubus.Custom.BusArrivalRecyclerAdapter;
 import com.bungabear.inubus.R;
 
@@ -24,6 +26,8 @@ public class ArrivalSubFragment extends Fragment {
     private Context context;
     private TextView test;
     private String st_busStop;
+    private FloatingActionButton fab;
+    private PullRefreshLayout refreshLayout;
 
     public static ArrivalSubFragment newInstance(Context context, String stopName) {
         Bundle args = new Bundle();
@@ -45,6 +49,15 @@ public class ArrivalSubFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_arrival_subfragment, container, false);
         // recyclerview test
         RecyclerView rv = v.findViewById(R.id.arrival_sub_recycler_list);
+        refreshLayout = v.findViewById(R.id.swipeRefreshLayout);
+        fab = v.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refreshLayout.setRefreshing(true);
+                // refresh
+            }
+        });
         rv.setHasFixedSize(true);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
