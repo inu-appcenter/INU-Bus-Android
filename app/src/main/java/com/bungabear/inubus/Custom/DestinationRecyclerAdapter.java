@@ -77,7 +77,7 @@ public class DestinationRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
         }
         else {
             v = (ConstraintLayout) LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.recyclerview_businfo_seperator, parent, false);
+                    .inflate(R.layout.recyclerview_destination_seperator, parent, false);
             RecyclerView.ViewHolder vh = new SeperatorHolder(v);
             return vh;
         }
@@ -98,14 +98,19 @@ public class DestinationRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
             mHolder.seperator.setText(""+item.sectionHeader );
         }
         else {
+            int color = 0;
             switch(item.type){
                 case 1:
+                    color = R.color.간선;
                     break;
                 case 2:
+                    color = R.color.간선급행;
                     break;
                 case 3:
+                    color = R.color.광역;
                     break;
                 case 4:
+                    color = R.color.광역급행;
                     break;
             }
             ItemViewHolder mHolder = (ItemViewHolder)holder;
@@ -117,7 +122,7 @@ public class DestinationRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
                 DisplayMetrics metrics = resources.getDisplayMetrics();
                 params.setMargins(0,0, (int)(8 * (metrics.densityDpi / 160f)),0);
                 tv.setLayoutParams(params);
-                tv.setTextColor(resources.getColor(R.color.간선급행));
+                tv.setTextColor(resources.getColor(color));
                 tv.setTextSize(18);
                 mHolder.linearLayout.addView(tv);
             }

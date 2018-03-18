@@ -2,6 +2,7 @@ package com.bungabear.inubus.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.bungabear.inubus.Custom.SwipeRemovableViewPager;
 
 public class ArrivalFragment extends Fragment {
 
+    private FloatingActionButton fab;
     private TabLayout tabLayout;
     private SwipeRemovableViewPager viewPager;
 
@@ -40,9 +42,9 @@ public class ArrivalFragment extends Fragment {
 
         viewPager = (SwipeRemovableViewPager) v.findViewById(R.id.arrival_viewpager);
         viewPager.setSwipeable(false);
-
+        viewPager.setOffscreenPageLimit(3);
         // TODO Context 액티비티에서 받아오기.
-        SubFragmentTabPagerAdaptor pagerAdapter = new SubFragmentTabPagerAdaptor(getChildFragmentManager(), getContext());
+        final SubFragmentTabPagerAdaptor pagerAdapter = new SubFragmentTabPagerAdaptor(getChildFragmentManager(), getContext());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -60,6 +62,13 @@ public class ArrivalFragment extends Fragment {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+        fab = v.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

@@ -2,10 +2,13 @@ package com.bungabear.inubus.Activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,5 +52,13 @@ public class SplashActivity extends AppCompatActivity {
                                  }
                              }
                 );
+
+//        Log.d("test", "onCreate: " + getApplicationName(this));
     }
+
+//    public static String getApplicationName(Context context) {
+//        ApplicationInfo applicationInfo = context.getApplicationInfo();
+//        int stringId = applicationInfo.labelRes;
+//        return stringId == 0 ? applicationInfo.nonLocalizedLabel.toString() : context.getString(stringId);
+//    }
 }

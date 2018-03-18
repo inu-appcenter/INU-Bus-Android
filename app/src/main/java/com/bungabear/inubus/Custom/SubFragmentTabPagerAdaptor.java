@@ -33,9 +33,9 @@ public class SubFragmentTabPagerAdaptor extends FragmentStatePagerAdapter {
 
     public void initFragment(Context context) {
         // 컨텍스트와 정류장 이름을 넘겨준다. 정류장 이름은 데이터 파싱에 사용하므로, 일치하는지 꼭 확인해야한다.
-        fragments.add(ArrivalSubFragment.newInstance(context,"공대"));
-        fragments.add(ArrivalSubFragment.newInstance(context,"자과대"));
-        fragments.add(ArrivalSubFragment.newInstance(context,"정문"));
+        fragments.add(ArrivalSubFragment.newInstance(context,"engineer"));
+        fragments.add(ArrivalSubFragment.newInstance(context,"science"));
+        fragments.add(ArrivalSubFragment.newInstance(context,"frontgate"));
     }
 
     @Override

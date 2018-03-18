@@ -2,7 +2,8 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="49.5dp"
     android:layout_width="match_parent"
     >
 
@@ -15,48 +16,54 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_marginLeft="15.5dp"
+        android:layout_width="@dimen/bus_favicon_size"
+        android:layout_height="@dimen/bus_favicon_size"
+        android:background="@drawable/custom_checkbox_favorite"
+        android:button="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/recycler_busno"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="@dimen/recycler_margin_left"
-        android:gravity="center_vertical" >
+        android:layout_marginLeft="13dp"
+        android:fontFamily="@font/seoul_namsan_m"
+        android:text="780"
+        android:textSize="@dimen/bus_num_textsize"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/checkBox"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <CheckBox
-            android:layout_width="@dimen/bus_favicon_size"
-            android:layout_height="@dimen/bus_favicon_size"
-            android:button="@null"
-            android:background="@drawable/custom_checkbox_favorite" />
+    <TextView
+        android:id="@+id/recycler_arrival"
+        android:layout_width="@dimen/bus_num_info_width"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:layout_marginLeft="145.8dp"
+        android:fontFamily="@font/seoul_namsan_m"
+        android:text="6분 30초"
+        android:textSize="@dimen/bus_num_info_textsize"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/checkBox"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/recycler_busno"
-            android:layout_width="@dimen/bus_num_width"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/bus_num_margin_left"
-            android:layout_marginTop="@dimen/bus_num_margin_top"
-            android:layout_marginBottom="@dimen/bus_num_margin_bottom"
-            android:textSize="@dimen/bus_num_textsize"
-            android:fontFamily="@font/seoul_namsan_m"
-            android:text="780"
-            />
+    <TextView
+        android:id="@+id/recycler_interval"
+        android:layout_width="@dimen/bus_num_info_width"
+        android:layout_height="12dp"
+        android:layout_marginLeft="250dp"
+        android:textColor="#000000"
+        android:fontFamily="@font/seoul_namsan_m"
+        android:text="10~18분"
+        android:textSize="@dimen/bus_num_info_textsize"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/checkBox"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/recycler_arrival"
-            android:layout_width="@dimen/bus_num_info_width"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/bus_num_info_textsize"
-            android:fontFamily="@font/seoul_namsan_m"
-            android:text="6분 30초"
-            />
-
-        <TextView
-            android:id="@+id/recycler_interval"
-            android:layout_width="@dimen/bus_num_info_width"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/bus_num_info_textsize"
-            android:fontFamily="@font/seoul_namsan_m"
-            android:text="10~18분"
-            />
-
-    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

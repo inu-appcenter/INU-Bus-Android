@@ -2,14 +2,15 @@
 ### Example user template template
 ### Example user template
 
-# Áß¿ä Á¤º¸
-KeyClass.java
+# ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½
+KeyClass
 
 # IntelliJ project files
 .idea
 *.iml
 out
-gen### Android template
+gen
+### Android template
 # Built application files
 *.apk
 *.ap_

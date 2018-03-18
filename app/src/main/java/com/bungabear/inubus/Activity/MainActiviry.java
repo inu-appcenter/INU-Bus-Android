@@ -78,7 +78,6 @@ public class MainActiviry extends AppCompatActivity {
         searchView = (AutoCompleteTextView) findViewById(R.id.search_view);
         searchView.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, items));
-
         sharedPreferences = getSharedPreferences("dialog", MODE_PRIVATE);
         sharedPreferencesEditor = sharedPreferences.edit();
 
@@ -123,11 +122,17 @@ public class MainActiviry extends AppCompatActivity {
 
         drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {}
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                searchView.setEnabled(false);
+            }
             @Override
-            public void onDrawerOpened(View drawerView) {}
+            public void onDrawerOpened(View drawerView) {
+                searchView.setEnabled(false);
+            }
             @Override
-            public void onDrawerClosed(View drawerView) {}
+            public void onDrawerClosed(View drawerView) {
+                searchView.setEnabled(true);
+            }
             @Override
             public void onDrawerStateChanged(int newState) {
                 if(newState == 2){
@@ -139,7 +144,7 @@ public class MainActiviry extends AppCompatActivity {
             }
         });
 
-        TextView askButton = drawer.findViewById(R.id.drawer_btn_ask);
+        LinearLayout askButton = drawer.findViewById(R.id.drawer_btn_ask);
         askButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
