@@ -36,6 +36,19 @@ public class SubFragmentTabPagerAdaptor extends FragmentStatePagerAdapter {
         fragments.add(ArrivalSubFragment.newInstance(context,"engineer"));
         fragments.add(ArrivalSubFragment.newInstance(context,"science"));
         fragments.add(ArrivalSubFragment.newInstance(context,"frontgate"));
+        fragments.add(ArrivalSubFragment.newInstance(context,"BITZon"));
+    }
+
+    public void refresh(){
+        for(ArrivalSubFragment fragment : fragments){
+            fragment.refresh();
+        }
+    }
+
+    public void refreshEstimate(){
+        for(ArrivalSubFragment fragment : fragments){
+            fragment.refreshEstimate();
+        }
     }
 
     @Override

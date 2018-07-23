@@ -28,6 +28,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <ToggleButton
+                android:visibility="gone"
                 android:id="@+id/fragment_toggle"
                 android:layout_width="@dimen/toggle_width"
                 android:layout_height="@dimen/toggle_height"

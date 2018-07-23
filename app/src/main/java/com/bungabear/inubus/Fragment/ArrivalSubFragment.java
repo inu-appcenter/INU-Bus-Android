@@ -47,6 +47,9 @@ public class ArrivalSubFragment extends Fragment {
                 case 2:
                     Snackbar.make(rv,"네트워크 오류", Snackbar.LENGTH_SHORT).show();
                     return true;
+                case 3:
+                    adapter.notifyDataSetChanged();
+                    return true;
             }
             return false;
         }
@@ -103,12 +106,16 @@ public class ArrivalSubFragment extends Fragment {
                 LinearLayoutManager.VERTICAL);
         dividerItemDecoration.setDrawable(getContext().getResources().getDrawable(R.drawable.bg_arrival_divider));
         rv.addItemDecoration(dividerItemDecoration);
-        adapter.refresh(mHandler);
+        refresh();
         rv.getRecycledViewPool().setMaxRecycledViews(0, 0);
         return v;
     }
 
     public void refresh(){
         adapter.refresh(mHandler);
+    }
+
+    public void refreshEstimate(){
+        adapter.refreshEstimate(mHandler);
     }
 }

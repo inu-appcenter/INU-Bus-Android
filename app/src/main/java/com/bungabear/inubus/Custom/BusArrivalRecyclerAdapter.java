@@ -46,8 +46,10 @@ public class BusArrivalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
         public String sectionHeader;
         public String busNum;
         public String interval;
-        public String arrival;
+        public String estimate;
         public String type;
+        public long arrival;
+        public int int_interval;
 
         public CustomItem(){
             this.isHeader = true;
@@ -58,9 +60,11 @@ public class BusArrivalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             isSectionHeader = true;
         }
 
-        public CustomItem(String busNum, String interval, String arrival, String type){
+        public CustomItem(String busNum, String interval, String estimate, String type, long arrival, int int_interval){
             this.busNum = busNum;
             this.interval = interval;
+            this.int_interval = int_interval;
+            this.estimate = estimate;
             this.arrival = arrival;
             this.type = type;
             isSectionHeader = false;
@@ -102,8 +106,8 @@ public class BusArrivalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
         mDataset.add(new CustomItem(sectionHeader));
     }
 
-    public void addItem(String busNum, String interval, String arrival, String type){
-        mDataset.add(new CustomItem(busNum, interval, arrival, type));
+    public void addItem(String busNum, String interval, String estimate, String type, long arrival, int int_interval){
+        mDataset.add(new CustomItem(busNum, interval, estimate, type, arrival, int_interval));
     }
 
     @Override
@@ -150,7 +154,7 @@ public class BusArrivalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
             ItemViewHolder mHolder = (ItemViewHolder)holder;
             mHolder.busNo.setText("" + item.busNum);
             mHolder.interval.setText("" + item.interval);
-            mHolder.arrival.setText("" + item.arrival);
+            mHolder.arrival.setText("" + item.estimate);
             int color;
             if(item.type.equals("간선")){
                 color = R.color.간선;
@@ -177,7 +181,7 @@ public class BusArrivalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 //        int itemPosition = mRecyclerView.getChildPosition(view);
 //        String item = mList.get(itemPosition);
 //        Toast.makeText(mContext, item, Toast.LENGTH_LONG).show();
-        v.getContext().startActivity(new Intent(v.getContext().getApplicationContext(), RouteActivity.class));
+//        v.getContext().startActivity(new Intent(v.getContext().getApplicationContext(), RouteActivity.class));
     }
 
     public void refresh(final Handler handler){
@@ -249,23 +253,39 @@ public class BusArrivalRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
         for(JsonElement arrival : datas){
             JsonObject obj = arrival.getAsJsonObject();
             String busno = obj.get("no").getAsString();
+            int int_interval = obj.get("interval").getAsInt();
             String interval = obj.get("interval").getAsString() + "분";
             String type = section;
-            String estimate;
-            long arrivalmillis = obj.get("arrival").getAsLong() - System.currentTimeMillis();
-            while(arrivalmillis < 0){
-                arrivalmillis += obj.get("interval").getAsInt()*60*1000;
-            }
-            if(arrivalmillis < 1000*60){
-                estimate = "곧 도착";
-            }
-            else {
-                estimate = "" + arrivalmillis/(1000*60) + "분 " + (arrivalmillis/1000)%60 + "초";
-            }
-            addItem(busno, interval, estimate, type);
+            String estimate = makeEstimateText(obj.get("arrival").getAsLong(), obj.get("interval").getAsInt());
+            addItem(busno, interval, estimate, type, obj.get("arrival").getAsLong(), int_interval);
         }
     }
 
+    private String makeEstimateText(long arrival, int interval){
+        String estimate;
+        long arrivalmillis = arrival - System.currentTimeMillis();
+        while(arrivalmillis < 0){
+            arrivalmillis += interval*60*1000;
+        }
+        if(arrivalmillis < 1000*60){
+            estimate = "곧 도착";
+        }
+        else {
+            estimate = "" + arrivalmillis/(1000*60) + "분 " + (arrivalmillis/1000)%60 + "초";
+        }
+        return estimate;
+    }
+
+    public void refreshEstimate(Handler handler){
+        for(CustomItem item : mDataset){
+            if(item.isSectionHeader || item.isHeader) continue;
+            item.estimate = makeEstimateText(item.arrival, item.int_interval);
+        }
+        Message msg = new Message();
+        msg.what = 3;
+        handler.sendMessage(msg);
+//        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {

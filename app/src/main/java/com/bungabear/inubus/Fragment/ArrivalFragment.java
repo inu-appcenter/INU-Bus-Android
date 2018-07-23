@@ -22,6 +22,7 @@ public class ArrivalFragment extends Fragment {
     private FloatingActionButton fab;
     private TabLayout tabLayout;
     private SwipeRemovableViewPager viewPager;
+    private SubFragmentTabPagerAdaptor pagerAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,15 +37,17 @@ public class ArrivalFragment extends Fragment {
         tabLayout.addTab(tabLayout.newTab());
         tabLayout.addTab(tabLayout.newTab());
         tabLayout.addTab(tabLayout.newTab());
+        tabLayout.addTab(tabLayout.newTab());
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_tab_spanner);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_tab_flask).getIcon().setAlpha(100);
         tabLayout.getTabAt(2).setIcon(R.drawable.ic_tab_gate).getIcon().setAlpha(100);
+        tabLayout.getTabAt(3).setIcon(R.drawable.ic_tab_gate).getIcon().setAlpha(100);
 
         viewPager = (SwipeRemovableViewPager) v.findViewById(R.id.arrival_viewpager);
         viewPager.setSwipeable(false);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(4);
         // TODO Context 액티비티에서 받아오기.
-        final SubFragmentTabPagerAdaptor pagerAdapter = new SubFragmentTabPagerAdaptor(getChildFragmentManager(), getContext());
+        pagerAdapter = new SubFragmentTabPagerAdaptor(getChildFragmentManager(), getContext());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -68,10 +71,18 @@ public class ArrivalFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                refresh();
             }
         });
 
         return v;
+    }
+
+    public void refresh(){
+        pagerAdapter.refresh();
+    }
+
+    public void refreshEstimate(){
+        pagerAdapter.refreshEstimate();
     }
 }

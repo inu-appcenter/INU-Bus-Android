@@ -41,6 +41,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,10 +56,41 @@ public class MainActiviry extends AppCompatActivity {
     private static final String TAG = "MainActiviry";
     private Fragment arrivalFragment, destinationFragment;
     private Context context = this;
-    private ToggleButton fragmenetToggle;
+    private Timer timer;
+    private TimerTask refreshEstimateOnlyTask, refreshTask;
+
+    @Override
+    protected void onPause() {
+//        Log.d(TAG, "onResume: end");
+        timer.cancel();
+        timer = null;
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        timer = new Timer();
+        refreshTask = new TimerTask() {
+            @Override
+            public void run() {
+                ((ArrivalFragment)arrivalFragment).refresh();
+            }
+        };
+        refreshEstimateOnlyTask = new TimerTask() {
+            @Override
+            public void run() {
+                ((ArrivalFragment)arrivalFragment).refreshEstimate();
+            }
+        };
+        timer.schedule(refreshEstimateOnlyTask, 1000,500);
+        timer.schedule(refreshTask, 500,30000);
+        super.onResume();
+    }
+
+//    private ToggleButton fragmenetToggle;
     private Toolbar toolbar;
     private DrawerLayout drawer;
-    private AutoCompleteTextView searchView;
+//    private AutoCompleteTextView searchView;
 
 
     @Override
@@ -67,17 +100,17 @@ public class MainActiviry extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
-        fragmenetToggle = (ToggleButton)findViewById(R.id.fragment_toggle);
+//        fragmenetToggle = (ToggleButton)findViewById(R.id.fragment_toggle);
 
         setSupportActionBar(toolbar);
         setNavigationDrawer();
         setFragmentToggle();
 
-        String[] items = { "SM3", "SM5", "SM7", "SONATA", "AVANTE", "SOUL", "K5",
-                "K7" };
-        searchView = (AutoCompleteTextView) findViewById(R.id.search_view);
-        searchView.setAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, items));
+//        String[] items = { "SM3", "SM5", "SM7", "SONATA", "AVANTE", "SOUL", "K5",
+//                "K7" };
+//        searchView = (AutoCompleteTextView) findViewById(R.id.search_view);
+//        searchView.setAdapter(new ArrayAdapter<String>(this,
+//                android.R.layout.simple_dropdown_item_1line, items));
         sharedPreferences = getSharedPreferences("dialog", MODE_PRIVATE);
         sharedPreferencesEditor = sharedPreferences.edit();
 
@@ -93,16 +126,16 @@ public class MainActiviry extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragment_view, arrivalFragment);
         fragmentTransaction.commit();
 
-        fragmenetToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                Fragment f = isChecked ? destinationFragment : arrivalFragment;
-                fragmentTransaction.replace(R.id.fragment_view, f);
-                fragmentTransaction.commit();
-            }
-        });
+//        fragmenetToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+//                Fragment f = isChecked ? destinationFragment : arrivalFragment;
+//                fragmentTransaction.replace(R.id.fragment_view, f);
+//                fragmentTransaction.commit();
+//            }
+//        });
     }
 
     private void setNavigationDrawer() {
@@ -123,15 +156,15 @@ public class MainActiviry extends AppCompatActivity {
         drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
-                searchView.setEnabled(false);
+//                searchView.setEnabled(false);
             }
             @Override
             public void onDrawerOpened(View drawerView) {
-                searchView.setEnabled(false);
+//                searchView.setEnabled(false);
             }
             @Override
             public void onDrawerClosed(View drawerView) {
-                searchView.setEnabled(true);
+//                searchView.setEnabled(true);
             }
             @Override
             public void onDrawerStateChanged(int newState) {
@@ -244,7 +277,7 @@ public class MainActiviry extends AppCompatActivity {
                     imageView.setVisibility(View.VISIBLE);
                 }
             }
-            dialog.show();
+//            dialog.show();
         }
     }
 

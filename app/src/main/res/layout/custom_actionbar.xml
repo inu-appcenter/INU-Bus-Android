@@ -7,8 +7,22 @@
     android:layout_margin="0dp"
     android:background="@color/colorPrimary">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="INU BUS"
+        android:textSize="20sp"
+        android:textColor="#ffffffff"
+        android:fontFamily="@font/seoul_namsan_b"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="@dimen/searchview_magicon_margin_left"
+        />
+
     <!-- 더미 포커스 삭제금지 -->
     <ImageView
+        android:visibility="gone"
         android:id="@+id/iv_magicon"
         android:layout_width="@dimen/searchview_magicon_size"
         android:layout_height="@dimen/searchview_magicon_size"
@@ -25,6 +39,7 @@
         />
 
     <AutoCompleteTextView
+        android:visibility="gone"
         android:id="@+id/search_view"
         android:layout_width="0dp"
         android:layout_height="@dimen/searchview_height"
@@ -53,7 +68,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/search_view"
         android:layout_marginRight="@dimen/infoicon_margin_right"
         android:layout_marginLeft="@dimen/infoicon_margin_right"
         />
