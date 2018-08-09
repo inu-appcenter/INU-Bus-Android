@@ -45,5 +45,8 @@
     <dimen name="info_drawer_width">207.72dp</dimen>
     
     <dimen name="dialog_width">164dp</dimen>
+
+    <dimen name="_0dp">0dp</dimen>
+    <dimen name="_21dp">21dp</dimen>
     <!--<dimen name="dialog_height">238.8dp</dimen>-->
 </resources>

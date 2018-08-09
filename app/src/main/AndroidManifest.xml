@@ -13,25 +13,9 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
         >
-
+        <service android:name=".MyService" />
         <activity
-            android:name=".Activity.MainActiviry"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name=".Activity.RouteActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name=".Activity.AskActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
-        </activity>
-
-        <activity
-            android:name=".Activity.SplashActivity"
+            android:name="com.bungabear.inubus.activity.SplashActivity"
             android:theme="@style/AppTheme.Splash"
             android:screenOrientation="portrait"
             >
@@ -41,6 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.RouteActivity"/>
     </application>
 
 </manifest>

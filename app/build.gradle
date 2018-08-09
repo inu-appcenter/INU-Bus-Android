@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -7,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.bungabear.inubus_renew"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 3
         versionName "1.1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -21,21 +23,26 @@ android {
     dataBinding {
         enabled = true
     }
+
 }
 
 dependencies {
+    def supportVersion = "27.1.1"
+    def retrofitVersion = "2.4.0"
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation('com.android.support.test.espresso:espresso-core:2.2.2', )
-    implementation 'com.android.support:recyclerview-v7:27.0.2'
-    implementation 'com.android.support:appcompat-v7:27.0.2'
-    implementation 'com.android.support:design:27.0.2'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
-    implementation 'com.baoyz.pullrefreshlayout:library:1.2.0'
-    testImplementation 'junit:junit:4.12'
+    implementation("com.android.support.test.espresso:espresso-core:2.2.2", )
+    implementation "com.android.support:recyclerview-v7:$supportVersion"
+    implementation "com.android.support:appcompat-v7:$supportVersion"
+    implementation "com.android.support:design:$supportVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:3.9.1"
+    implementation "com.baoyz.pullrefreshlayout:library:1.2.0"
+    testImplementation "junit:junit:4.12"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+//    implementation 'com.github.ceryle:SegmentedButton:v2.0.2'
+    implementation 'com.github.bungabear:SegmentedButton:v2.0.3'
 }
 repositories {
     mavenCentral()

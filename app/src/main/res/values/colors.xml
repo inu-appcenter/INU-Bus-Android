@@ -13,12 +13,21 @@
     <color name="navigationBarColor">#FFFFFF</color>
 
     <color name="간선">#2f60ce</color>
+    <color name="간선급행">#8d14bf</color>
     <color name="광역">#de2222</color>
     <color name="광역급행">@android:color/holo_blue_light</color>
-    <color name="간선급행">#8d14bf</color>
     <color name="순환">#22c244</color>
 
-    <color name="search_hint">#565656</color>
-    <color name="seperator_bg">#EBEBEB</color>
+    <!--<color name="search_hint">#565656</color>-->
+    <!--<color name="seperator_bg">#EBEBEB</color>-->
 
+    <color name="default_background_white">#ffffff</color>
+    <color name="inu_blue">#3179bd</color>
+    <color name="favorite_yellow">#f4db37</color>
+    <color name="default_gray">#ebebeb</color>
+    <color name="toggle_background_gray">#eeeeee</color>
+    <color name="toggle_default_font_gray">#838383</color>
+    <color name="text_hint_gray">#6a6a6a</color>
+    <color name="warn_red">#de2222</color>
+    <color name="drawer_background_gray">#e1e1e1</color>
 </resources>

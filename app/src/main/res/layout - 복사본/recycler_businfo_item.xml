@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="data"
+            type="com.bungabear.inubus.model.ArrivalInfo.BusArrivalInfo"/>
+        <variable
+            name="listener"
+            type="com.bungabear.inubus.adapter.ArrivalRecyclerAdapter.ItemViewHolder"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:onClick="@{(v) -> listener.onClick(data)}"
+        >
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_marginLeft="15.5dp"
+            android:layout_width="@dimen/bus_favicon_size"
+            android:layout_height="@dimen/bus_favicon_size"
+            android:background="@drawable/custom_checkbox_favorite"
+            android:button="@null"
+            android:checked="@{data.favorite}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:checked="true"
+            />
+
+        <TextView
+            android:id="@+id/recycler_busno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="44.5dp"
+            android:fontFamily="@font/source_sans_roman_regula"
+            android:text="@{data.no}"
+            android:textColor="@{data.type.color}"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="780-1"
+            tools:textColor="@color/간선"
+            />
+
+        <!-- 텍스트 배치 기준 뷰 -->
+        <View
+            android:id="@+id/view2"
+            android:layout_width="0dp"
+            android:layout_height="51.5dp"
+            android:background="@android:color/transparent"
+            android:layout_marginEnd="200dp"
+            android:layout_marginRight="200dp"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/recycler_arrival"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_r"
+            android:text="@{String.valueOf(data.arrival)}"
+            android:textColor="#000000"
+            android:textSize="@dimen/bus_num_info_textsize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/view2"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="6분 30초" />
+
+        <TextView
+            android:id="@+id/recycler_interval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginLeft="100dp"
+            android:fontFamily="@font/nanum_square_r"
+            android:text="@{String.valueOf(data.interval)}"
+            android:textColor="#000000"
+            android:textSize="@dimen/bus_num_info_textsize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/view2"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="10~18분"/>
+
+        <!-- Root View SizeHoler -->
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
