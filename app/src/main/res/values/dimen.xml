@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="actionbar_height">41dp</dimen>
+    <dimen name="actionbar_height">43.5dp</dimen>
 
     <dimen name="searchview_textsize">12.4sp</dimen>
     <dimen name="searchview_height">24.5dp</dimen>

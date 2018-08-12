@@ -69,3 +69,4 @@ freeline.py
 freeline/
 freeline_project_description.json
 
+/app/src/main/java/com/bungabear/inubus/Config.kt

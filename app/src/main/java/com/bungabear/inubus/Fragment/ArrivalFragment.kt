@@ -13,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.bungabear.inubus.R
 import com.bungabear.inubus.adapter.ArrivalRecyclerAdapter
-import com.bungabear.inubus.model.ArrivalInfo
 import com.bungabear.inubus.util.LocalIntent
 import com.bungabear.inubus.util.Singleton
 import kotlinx.android.synthetic.main.fragment_node_arrival.*
@@ -28,7 +27,7 @@ class ArrivalFragment : Fragment() {
     private lateinit var mStrBusStop: String
     private lateinit var mContext : Context
     private val mBroadcastManager by lazy { LocalBroadcastManager.getInstance(mContext) }
-    private val adapter by lazy { ArrivalRecyclerAdapter(mStrBusStop) }
+    private val adapter by lazy { ArrivalRecyclerAdapter() }
 
     companion object {
         fun newInstance(context: Context, stopName: String): ArrivalFragment {
@@ -58,7 +57,7 @@ class ArrivalFragment : Fragment() {
 
     }
 
-    val broadcastReceiver = object : BroadcastReceiver() {
+    private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             Log.d("test", "$mStrBusStop received response")
             when(intent.action){
@@ -69,47 +68,19 @@ class ArrivalFragment : Fragment() {
     }
 
     fun firstDataInsert(){
-        val checked = Singleton.arrivalInfo!!.filter{ it.name == mStrBusStop }
-        if(checked.isEmpty()) return
-        val filtered = checked[0].data
-        adapter.applyDataSet(filtered)
-
-//        // Type순 정렬
-//        filtered.sortWith(Comparator { o1, o2 ->
-//            o1.type!!.ordinal - o1.type.ordinal
-//        })
-//
-//        // 번호순 정렬
-//        filtered.sortWith(compareBy { it.no })
-//
-//        val grouped  = filtered.groupBy { it.type }
-//
-//        grouped.forEach{ group->
-//            // 현재 필요한 섹션 헤더만 추가
-//            adapter.addSectionHeader(group.key!!)
-//            group.value.forEach {
-//                adapter.addItem(it)
-//            }
-//        }
+        dataRefresh()
     }
 
     fun dataRefresh(){
-        fragment_node_arrival_swipeRefreshLayout.isRefreshing = false
+        fragment_node_arrival_swipeRefreshLayout?.isRefreshing = false
         val checked = Singleton.arrivalInfo!!.filter{ it.name == mStrBusStop }
         if(checked.isEmpty()) return
         val filtered = checked[0].data
         adapter.applyDataSet(filtered)
-
-//        Singleton.arrivalInfo!!
-//                .filter{ it.name == mStrBusStop }
-//                .map { it.data }
-//                .forEach {
-//                    it.forEach { _it -> adapter.applyItem(_it) }
-//                }
     }
 
-    fun startRouteView(){
-
+    fun filter(str : String){
+        adapter.filter(str)
     }
 
 }

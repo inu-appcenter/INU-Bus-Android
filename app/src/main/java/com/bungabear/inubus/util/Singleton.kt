@@ -1,8 +1,8 @@
 package com.bungabear.inubus.util
 
 import com.bungabear.inubus.Config
-import com.bungabear.inubus.model.ArrivalInfo
-import com.bungabear.inubus.model.BusInfoes
+import com.bungabear.inubus.model.ArrivalInfoModel
+import com.bungabear.inubus.model.BusInfomations
 import com.bungabear.inubus.util.Singleton.myPackageName
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,12 +16,11 @@ object Singleton{
     val retrofit = Retrofit.Builder().baseUrl(Config.serverAddr).addConverterFactory(GsonConverterFactory.create()).build().create(RetrofitService::class.java)
     var CleanStart = true
     val myPackageName = "com.bungabear.inubus"
-    val busInfo  = mutableMapOf<String, BusInfoes.BusInfo>()
-    var arrivalInfo : ArrivalInfo? = null
-//    var busInfo : BusInfoes? = null
+    val busInfo  = mutableMapOf<String, BusInfomations.BusInformation>()
+    var arrivalInfo : ArrivalInfoModel? = null
+    const val LOG_TAG = "INU Bus"
+    const val DB_VERSTION = 1
 }
-
-const val LOG_TAG = "INU Bus"
 
 enum class LocalIntent(val value : String) : CharSequence by value {
     FIRST_DATA_REQUEST("$myPackageName.FIRST_DATA_REQUEST"),

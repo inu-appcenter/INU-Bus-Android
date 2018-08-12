@@ -7,12 +7,12 @@ package com.bungabear.inubus.model
 // Column Header, Section Header, ArrivalItem을 함께 담는 객체
 class ArrivalRecyclerItem(
         val itemType : ItemType = ItemType.ArrivalInfo,
-        val sectionHeader : ArrivalInfo.BusType? = null,
-        val arrivalInfo: ArrivalInfo.BusArrivalInfo? = null
+        val sectionHeader : ArrivalInfoModel.BusType? = null,
+        val arrivalInfo: ArrivalInfoModel.BusArrivalInfo? = null
 ){
     constructor() : this(ItemType.Header)
-    constructor(sectionHeader : ArrivalInfo.BusType) : this(ItemType.SectionHeader, sectionHeader)
-    constructor(arrivalInfo: ArrivalInfo.BusArrivalInfo) : this(ItemType.ArrivalInfo, arrivalInfo = arrivalInfo)
+    constructor(sectionHeader : ArrivalInfoModel.BusType) : this(ItemType.SectionHeader, sectionHeader)
+    constructor(arrivalInfo: ArrivalInfoModel.BusArrivalInfo) : this(ItemType.ArrivalInfo, arrivalInfo = arrivalInfo)
 
     // RecyclerView's Multiple Type Enum
     enum class ItemType{
@@ -26,7 +26,7 @@ class ArrivalRecyclerItem(
         return when(this.itemType){
             ItemType.Header -> other.itemType == ItemType.Header
             ItemType.SectionHeader -> this.sectionHeader == other.sectionHeader
-            ItemType.ArrivalInfo -> this.arrivalInfo!!.no == other.arrivalInfo!!.no
+            ItemType.ArrivalInfo -> if(other.arrivalInfo == null) false else this.arrivalInfo!!.no == other.arrivalInfo.no
         }
     }
 }

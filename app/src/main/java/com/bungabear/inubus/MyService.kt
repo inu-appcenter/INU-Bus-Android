@@ -8,8 +8,8 @@ import android.content.IntentFilter
 import android.os.IBinder
 import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
-import com.bungabear.inubus.model.ArrivalInfo
-import com.bungabear.inubus.model.BusInfoes
+import com.bungabear.inubus.model.ArrivalInfoModel
+import com.bungabear.inubus.model.BusInfomations
 import com.bungabear.inubus.util.LocalIntent
 import com.bungabear.inubus.util.Singleton
 import retrofit2.Call
@@ -50,13 +50,13 @@ class MyService : Service(){
     }
 
     private fun requestNodeRoutes(){
-        Singleton.retrofit.getNodeRoute().enqueue(object : Callback<BusInfoes>{
-            override fun onFailure(call: Call<BusInfoes>, t: Throwable) {
+        Singleton.retrofit.getNodeRoute().enqueue(object : Callback<BusInfomations>{
+            override fun onFailure(call: Call<BusInfomations>, t: Throwable) {
                 //TODO 에러 표시
                 t.printStackTrace()
                 stopSelf()
             }
-            override fun onResponse(call: Call<BusInfoes>, response: Response<BusInfoes>) {
+            override fun onResponse(call: Call<BusInfomations>, response: Response<BusInfomations>) {
                 response.body()!!.forEach {
                     Singleton.busInfo[it.no] = it
                 }
@@ -65,14 +65,14 @@ class MyService : Service(){
     }
 
     private fun requestArrivalInfo(callback: (() -> Unit)? = null){
-        Singleton.retrofit.getArrivalInfo().enqueue(object : Callback<ArrivalInfo>{
-            override fun onFailure(call: Call<ArrivalInfo>, t: Throwable) {
+        Singleton.retrofit.getArrivalInfo().enqueue(object : Callback<ArrivalInfoModel>{
+            override fun onFailure(call: Call<ArrivalInfoModel>, t: Throwable) {
                 //TODO 에러 표시
                 t.printStackTrace()
                 stopSelf()
             }
 
-            override fun onResponse(call: Call<ArrivalInfo>, response: Response<ArrivalInfo>) {
+            override fun onResponse(call: Call<ArrivalInfoModel>, response: Response<ArrivalInfoModel>) {
                 Singleton.arrivalInfo = response.body()
                 if(callback != null)
                     callback()
@@ -98,6 +98,8 @@ class MyService : Service(){
                     }
                     else {
 //                        bindBusInfo()
+                        // FIXME 타이밍이 빨라 Fragment들이 수신 못하는 문제가 간혹 있음.
+                        // Timer사용해서 재전송?
                         val newIntent = Intent(LocalIntent.FIRST_DATA_RESPONSE.value)
                         mBroadcastManager.sendBroadcast(newIntent)
                         Log.d("test", "Service sent firstdataresponse")

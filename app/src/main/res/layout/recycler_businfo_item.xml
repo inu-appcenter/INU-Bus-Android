@@ -6,7 +6,7 @@
     <data>
         <variable
             name="data"
-            type="com.bungabear.inubus.model.ArrivalInfo.BusArrivalInfo"/>
+            type="com.bungabear.inubus.model.ArrivalInfoModel.BusArrivalInfo"/>
         <variable
             name="listener"
             type="com.bungabear.inubus.adapter.ArrivalRecyclerAdapter.ItemViewHolder"/>

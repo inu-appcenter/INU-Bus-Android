@@ -29,21 +29,17 @@ class SplashActivity : AppCompatActivity(){
         startService(Intent(applicationContext, MyService::class.java))
     }
 
-
-    var animationListener = object : Animator.AnimatorListener{
-        override fun onAnimationRepeat(animation: Animator?) {
-        }
+    private var animationListener = object : Animator.AnimatorListener{
+        override fun onAnimationRepeat(animation: Animator?) { }
 
         override fun onAnimationEnd(animation: Animator?) {
             startActivity(Intent(applicationContext, MainActivity::class.java))
             finish()
         }
 
-        override fun onAnimationCancel(animation: Animator?) {
-        }
+        override fun onAnimationCancel(animation: Animator?) { }
 
-        override fun onAnimationStart(animation: Animator?) {
-        }
+        override fun onAnimationStart(animation: Animator?) { }
 
     }
 }

@@ -11,8 +11,7 @@ import android.widget.TextView
 import com.bungabear.inubus.R
 import com.bungabear.inubus.activity.RouteActivity
 import com.bungabear.inubus.databinding.RecyclerBusinfoItemBinding
-import com.bungabear.inubus.fragment.ArrivalFragment
-import com.bungabear.inubus.model.ArrivalInfo
+import com.bungabear.inubus.model.ArrivalInfoModel
 import com.bungabear.inubus.model.ArrivalRecyclerItem
 import com.bungabear.inubus.util.ArrivalInfoDiffUtil
 import com.bungabear.inubus.util.Singleton
@@ -23,11 +22,11 @@ import kotlin.collections.ArrayList
  * Created by Minjae Son on 2018-08-07.
  */
 
-class ArrivalRecyclerAdapter(private val mStrStopName : String) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class ArrivalRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     private val mArrivalItems = ArrayList<ArrivalRecyclerItem>()
-
-//    private val mSectionHeaderMap = mutableMapOf<ArrivalInfo.BusType, Int>()
+    private var mFilteredItems = ArrayList<ArrivalRecyclerItem>()
+    private var mFilteringString = ""
 
     init {
         // Column Header
@@ -45,7 +44,7 @@ class ArrivalRecyclerAdapter(private val mStrStopName : String) : RecyclerView.A
             ArrivalRecyclerItem.ItemType.SectionHeader->{
                 val v = LayoutInflater.from(parent.context)
                         .inflate(R.layout.recycler_businfo_seperator, parent, false)
-                SeperatorHolder(v)
+                SectionHeaderViewHolder(v)
 
             }
             ArrivalRecyclerItem.ItemType.ArrivalInfo->{
@@ -55,159 +54,57 @@ class ArrivalRecyclerAdapter(private val mStrStopName : String) : RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(mArrivalItems[position].itemType){
+        when(mFilteredItems[position].itemType){
             ArrivalRecyclerItem.ItemType.Header->{ }
             ArrivalRecyclerItem.ItemType.SectionHeader->{
-                (holder as SeperatorHolder).bind(mArrivalItems[position].sectionHeader!!)
+                (holder as SectionHeaderViewHolder).bind(mFilteredItems[position].sectionHeader!!)
             }
             ArrivalRecyclerItem.ItemType.ArrivalInfo->{
-                (holder as ItemViewHolder).bind(mArrivalItems[position].arrivalInfo!!)
+                (holder as ItemViewHolder).bind(mFilteredItems[position].arrivalInfo!!)
             }
         }
 
     }
 
-    override fun getItemCount(): Int = mArrivalItems.size
-    override fun getItemViewType(position: Int): Int = mArrivalItems[position].itemType.ordinal
+    override fun getItemCount(): Int = mFilteredItems.size
+    override fun getItemViewType(position: Int): Int = mFilteredItems[position].itemType.ordinal
 
-    fun addSectionHeader(type : ArrivalInfo.BusType){
-//        if(mSectionHeaderMap[type] == null){
-        mArrivalItems.add(ArrivalRecyclerItem(sectionHeader = type))
-//            mSectionHeaderMap[type] = mArrivalItems.size-1
-//            notifyItemInserted( mArrivalItems.size-1)
-//        }
-//        else {
-//            Log.e(LOG_TAG, "섹션헤더 중복 추가 : $type")
-//        }
-
-//        return mArrivalItems.size-1
-    }
-
-//    fun applyItem(arrivalInfo : ArrivalInfo.BusArrivalInfo){
-//        // 이미 목록에 있는 버스의 경우 도착 정보만 변경
-//        mArrivalItems.forEachIndexed{ index, it->
-//            if(it.arrivalInfo?.no == arrivalInfo.no){
-//                Log.d("test", "$mStrStopName ${it.arrivalInfo.no} ${it.arrivalInfo.arrival}")
-//                if(it.arrivalInfo.arrival != arrivalInfo.arrival){
-//                    it.arrivalInfo.arrival = arrivalInfo.arrival
-//                    notifyItemChanged(index)
-//                }
-//                return
-//            }
-//        }
-//        // 새로 추가
-//        addItem(arrivalInfo)
-//    }
-
-    fun applyDataSet(items: ArrayList<ArrivalInfo.BusArrivalInfo>) {
-        val preArrivalItems = ArrayList<ArrivalRecyclerItem>()
+    fun applyDataSet(items: ArrayList<ArrivalInfoModel.BusArrivalInfo>) {
+        mArrivalItems.clear()
         val sorted = itemSort(items)
         val grouped  = sorted.groupBy { it.type }
         grouped.forEach { group ->
             // 현재 필요한 섹션 헤더만 추가
-            preArrivalItems.add(ArrivalRecyclerItem(group.key!!))
+            mArrivalItems.add(ArrivalRecyclerItem(group.key!!))
             group.value.forEach {
-                preArrivalItems.add(ArrivalRecyclerItem(it))
+                mArrivalItems.add(ArrivalRecyclerItem(it))
             }
-//            addSectionHeader(group.key!!)
-//            group.value.forEach {
-//                addItem(it)
-//        }
         }
-        preArrivalItems.add(0,ArrivalRecyclerItem())
-        updateDataSet(preArrivalItems)
+
+        mArrivalItems.add(0,ArrivalRecyclerItem())
+        filter()
+
     }
 
-    private fun updateDataSet(newDataSet : ArrayList<ArrivalRecyclerItem>) {
-        val asdfas = ArrivalInfoDiffUtil(mArrivalItems, newDataSet)
-        val result = DiffUtil.calculateDiff(asdfas)
-        mArrivalItems.clear()
-        mArrivalItems.addAll(newDataSet)
-        result.dispatchUpdatesTo(this)
-//        notifyDataSetChanged()
-    }
 
-//    private fun applyPreDataSet(preArrivalItems: ArrayList<ArrivalRecyclerItem>) {
-//        var lastMatch = 0
-//        mArrivalItems.forEachIndexed old@{ oldIndex, old ->
-//            preArrivalItems.forEachIndexed { newIndex, new->
-//                if(old.equals(new)){
-//                    if(old.itemType == ArrivalRecyclerItem.ItemType.ArrivalInfo){
-//                        old.arrivalInfo!!.arrival = new.arrivalInfo!!.arrival
-//                    }
-//                    mArrivalItems.addAll(oldIndex, preArrivalItems.subList(lastMatch, newIndex))
-//                    lastMatch = newIndex
-//                    return@old
-//                }
-//                if(oldIndex == mArrivalItems.size-1){
-//                    mArrivalItems.addAll(oldIndex, preArrivalItems.subList(lastMatch, preArrivalItems.size))
-//                }
-//            }
-//        }
-//        notifyDataSetChanged()
-
-        // 남아있는 preArrivalItems는 새로 추가되는 버스 도착정보.
-        // 각 분류에 맞게 배치.
-
-//        val sectionPosition = mutableMapOf<ArrivalRecyclerItem.ItemType, Int>()
-//        mArrivalItems.forEachIndexed{ index, it ->if(it.itemType == ArrivalRecyclerItem.ItemType.SectionHeader) sectionPosition.put(it.itemType, index)}
-
-//    }
-
-    private fun itemSort(items : ArrayList<ArrivalInfo.BusArrivalInfo>) : ArrayList<ArrivalInfo.BusArrivalInfo>{
+    private fun itemSort(items : ArrayList<ArrivalInfoModel.BusArrivalInfo>) : ArrayList<ArrivalInfoModel.BusArrivalInfo>{
         // 버스종류순 정렬
         items.sortWith(Comparator { o1, o2 ->
-            o1.type!!.ordinal - o1.type.ordinal
+            o1.type!!.ordinal - o2.type!!.ordinal
         })
 
         // 번호순 정렬
         items.sortWith(compareBy { it.no })
         return items
     }
-//
-//    fun addItem(arrivalInfo : ArrivalInfo.BusArrivalInfo){
-//        // TODO 나중에 추가되는 버스는 정렬이 안됨
-//        val type = arrivalInfo.type
-//        // 해당 섹션이 이미 있는 경우
-//        if(mSectionHeaderMap[type] != null){
-//            var position = mSectionHeaderMap[type]!! +1
-//            if(position > mArrivalItems.size)
-//                position = mArrivalItems.size
-//            mArrivalItems.add(position, ArrivalRecyclerItem(arrivalInfo))
-//            notifyItemInserted(position)
-//            ArrivalInfo.BusType.eachToEnd(type!!){
-//                if(mSectionHeaderMap[it] != null){
-//                    mSectionHeaderMap[it] = mSectionHeaderMap[it]!! + 1
-//                }
-//
-//            }
-//        }
-//
-//        // 해당 섹션이 없는 경우
-//        else {
-//            val position = addSectionHeader(type!!)
-//            mSectionHeaderMap[type] = position
-//            notifyItemInserted(position)
-//            mArrivalItems.add(position+1, ArrivalRecyclerItem(arrivalInfo))
-//            notifyItemInserted(position+1)
-//
-//
-//            ArrivalInfo.BusType.eachToEnd(type){
-//                if(mSectionHeaderMap[it] != null){
-//                    mSectionHeaderMap[it] = mSectionHeaderMap[it]!! + 2
-//                }
-//            }
-//        }
-//
-//    }
 
     // 개별 버스 정보용 홀더
-    class ItemViewHolder(val binding : RecyclerBusinfoItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data : ArrivalInfo.BusArrivalInfo){
+    class ItemViewHolder(private val binding : RecyclerBusinfoItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(data : ArrivalInfoModel.BusArrivalInfo){
             binding.data = data
             binding.listener = this
         }
-        fun onClick(data : ArrivalInfo.BusArrivalInfo){
+        fun onClick(data : ArrivalInfoModel.BusArrivalInfo){
             Log.d("test", "OnClick called")
             val context = binding.root.context
             val intent = Intent(context, RouteActivity::class.java)
@@ -217,13 +114,37 @@ class ArrivalRecyclerAdapter(private val mStrStopName : String) : RecyclerView.A
     }
 
     // 버스 분류를 위한 홀더
-    class SeperatorHolder(val v : View) : RecyclerView.ViewHolder(v) {
-        fun bind(type : ArrivalInfo.BusType){
+    class SectionHeaderViewHolder(private val v : View) : RecyclerView.ViewHolder(v) {
+        fun bind(type : ArrivalInfoModel.BusType){
             v.findViewById<TextView>(R.id.separator).text = type.value
         }
     }
 
     // 문구를 위한 헤더 홀더
-    class HeaderHolder(val v : View) : RecyclerView.ViewHolder(v)
+    class HeaderHolder(v : View) : RecyclerView.ViewHolder(v)
 
+    fun filter(str : String = mFilteringString) {
+        mFilteringString = str
+        val filtered =
+        // 검색 취소
+                if(str == ""){
+                    mArrivalItems
+                }
+                // 부서 안에서 검색
+                else {
+                    ArrayList(
+                            mArrivalItems.filter { item ->
+                                if (item.itemType == ArrivalRecyclerItem.ItemType.ArrivalInfo)
+                                    !Singleton.busInfo[item.arrivalInfo!!.no]!!.nodeList.find{ it.contains(str) }.isNullOrEmpty()
+                                else false
+
+                            }
+                    )
+                }
+        val diffUtil = ArrivalInfoDiffUtil(mFilteredItems, filtered)
+        val result = DiffUtil.calculateDiff(diffUtil)
+        mFilteredItems.clear()
+        mFilteredItems.addAll(filtered)
+        result.dispatchUpdatesTo(this)
+    }
 }

@@ -1,7 +1,7 @@
 package com.bungabear.inubus.util
 
-import com.bungabear.inubus.model.ArrivalInfo
-import com.bungabear.inubus.model.BusInfoes
+import com.bungabear.inubus.model.ArrivalInfoModel
+import com.bungabear.inubus.model.BusInfomations
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -13,13 +13,13 @@ import retrofit2.http.Query
 interface RetrofitService{
 
     @GET("/arrivalInfo")
-    fun getArrivalInfo() : Call<ArrivalInfo>
+    fun getArrivalInfo() : Call<ArrivalInfoModel>
 
     @GET("/getNodes/")
-    fun getNodeRoute() : Call<BusInfoes>
+    fun getNodeRoute() : Call<BusInfomations>
 
     @GET("/getNodes/{nodenum}")
-    fun getNodeRoute(@Query("nodenum") no : String) : Call<BusInfoes>
+    fun getNodeRoute(@Query("nodenum") no : String) : Call<BusInfomations>
 
 
 

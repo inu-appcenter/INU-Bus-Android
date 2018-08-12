@@ -2,13 +2,11 @@ package com.bungabear.inubus.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import com.bungabear.inubus.R
 import com.bungabear.inubus.adapter.RouteRecyclerAdapter
-import com.bungabear.inubus.util.LOG_TAG
 import com.bungabear.inubus.util.Singleton
+import com.bungabear.inubus.util.Singleton.LOG_TAG
 import kotlinx.android.synthetic.main.activity_route.*
 
 /**
@@ -28,16 +26,10 @@ class RouteActivity : AppCompatActivity() {
         if(turnNode == ""){
             // 회차지 없음
             routeList.forEachIndexed { index, s ->
-                Log.d(LOG_TAG, s)
-                if(index == 1)
-                {
-                    adapter.addStop(s,1,1)
-                }
-                else if(index == routeList.lastIndex){
-                    adapter.addStop(s,1,2)
-                }
-                else {
-                    adapter.addStop(s,1,3)
+                when (index) {
+                    1 -> adapter.addStop(s,1,1)
+                    routeList.lastIndex -> adapter.addStop(s,1,2)
+                    else -> adapter.addStop(s,1,3)
                 }
             }
         }
@@ -49,23 +41,15 @@ class RouteActivity : AppCompatActivity() {
             routeList.forEachIndexed { index, s ->
                 Log.d(LOG_TAG, s)
                 // 시작
-                if(index == 0){
-                    adapter.addStop(s,1,1)
-                }
-                // 중간(회차전)
-                else if(index < turnNodePosition){
-                    adapter.addStop(s,1,3)
-                }
-                else if(turnNodePosition - index == 0){
-                    adapter.addReturn()
-                }
-                // 끝
-                else if(index == routeList.lastIndex){
-                    adapter.addStop(s,2,2)
-                }
-                // 중간(회차후)
-                else {
-                    adapter.addStop(s,2,3)
+                when {
+                    index == 0 -> adapter.addStop(s,1,1)
+                    // 중간(회차전)
+                    index < turnNodePosition -> adapter.addStop(s,1,3)
+                    turnNodePosition - index == 0 -> adapter.addReturn()
+                    // 끝
+                    index == routeList.lastIndex -> adapter.addStop(s,2,2)
+                    // 중간(회차후)
+                    else -> adapter.addStop(s,2,3)
                 }
             }
         }

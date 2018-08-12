@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="data"
+            type="com.bungabear.inubus.model.InquireModel"/>
+        <variable
+            name="listener"
+            type="com.bungabear.inubus.activity.InquireActivity"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <!-- Actionbar -->
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:background="@color/colorPrimary"
+            >
+
+            <Button
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginLeft="17.5dp"
+                android:background="@drawable/ic_close_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:text="문의하기"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/nanum_square_b"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+
+                <TextView
+                    android:text="제목"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:gravity="center_vertical"
+                    android:inputType="text"
+                    tools:text="기능 건의"
+                    android:padding="9dp"
+                    android:text="@={data.title}"
+                    android:layout_gravity="right"
+                    android:background="@drawable/bg_inquire_rounded_et"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:layout_width="269dp"
+                    android:layout_height="33dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15.5dp">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:text="연락처"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+
+                <EditText
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:inputType="text"
+                    android:gravity="center_vertical"
+                    tools:text="bungabear6422@gmail.com"
+                    android:padding="9dp"
+                    android:text="@={data.contact}"
+                    android:background="@drawable/bg_inquire_rounded_et"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/nanum_square_r"
+                    android:layout_width="269dp"
+                    android:layout_height="33dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:text="내용"
+                android:textSize="14sp"
+                android:fontFamily="@font/nanum_square_r"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28.5dp"/>
+
+            <EditText
+                android:gravity="top|left"
+                android:text="@={data.message}"
+                android:padding="10.5dp"
+                android:background="@drawable/bg_inquire_rounded_et"
+                android:textSize="14sp"
+                android:fontFamily="@font/nanum_square_r"
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:layout_marginTop="8dp"
+                tools:text="test"
+                />
+
+
+        </LinearLayout>
+
+        <Button
+            android:onClick="@{() -> listener.onSendButtonClick(data)}"
+            android:layout_marginRight="15.5dp"
+            android:gravity="center"
+            android:layout_gravity="right"
+            android:text="등록"
+            android:textColor="@{data.enabled ? @color/colorPrimary : @color/toggle_default_font_gray}"
+            android:background="@android:color/transparent"
+            android:textSize="14sp"
+            android:fontFamily="@font/nanum_square_r"
+            android:layout_width="61dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="25.5dp"
+            android:enabled="@{data.enabled}" />
+
+    </LinearLayout>
+</layout>
