@@ -19,6 +19,7 @@
         <item name="buttonBarNeutralButtonStyle">@style/buttonBarButtonStyle</item>
         <item name="buttonBarNegativeButtonStyle">@style/buttonBarButtonStyle</item>
         <item name="buttonBarPositiveButtonStyle">@style/buttonBarButtonStyle</item>
+
     </style>
 
     <style name="buttonBarStyle" >
@@ -38,4 +39,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
+    <style name="AppTheme.PopupAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
 </resources>

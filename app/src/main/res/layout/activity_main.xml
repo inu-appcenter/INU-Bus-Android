@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -24,14 +22,14 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="145.5dp"
-            android:layout_height="25dp"
+            android:layout_height="0dp"
+            android:padding="3dp"
             android:background="@drawable/bg_rounded_corner_toggle"
             android:gravity="center"
             android:layout_marginTop="13dp"
-            app:layout_constraintTop_toBottomOf="@+id/actionbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/actionbar">
 
             <co.ceryle.segmentedbutton.SegmentedButtonGroup
                 android:id="@+id/activity_main_toggle"
@@ -49,8 +47,8 @@
                     app:sb_text="시간"
                     app:sb_textColor="@color/toggle_default_font_gray"
                     app:sb_textColor_onSelection="@android:color/black"
-                    app:sb_textSize="12sp"
-                    app:sb_textFont="@font/nanum_square_r" />
+                    app:sb_textFont="@font/nanum_square_r"
+                    app:sb_textSize="12sp" />
 
                 <co.ceryle.segmentedbutton.SegmentedButton
                     android:layout_width="69.5dp"
@@ -58,51 +56,41 @@
                     app:sb_text="목적지"
                     app:sb_textColor="@color/toggle_default_font_gray"
                     app:sb_textColor_onSelection="@android:color/black"
-                    app:sb_textSize="12sp"
-                    app:sb_textFont="@font/nanum_square_r" />
+                    app:sb_textFont="@font/nanum_square_r"
+                    app:sb_textSize="12sp" />
 
             </co.ceryle.segmentedbutton.SegmentedButtonGroup>
         </LinearLayout>
 
-        <android.support.v4.view.ViewPager
+        <!-- 시간/목적지 ViewPager -->
+        <com.bungabear.inubus.custom.NonSwipeViewPager
             android:id="@+id/activity_main_viewpager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="17.5dp"
-            app:layout_constraintBottom_toTopOf="@+id/view3"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        </android.support.v4.view.ViewPager>
-
-        <!-- 탭바랑 뷰페이저 나누는 선 -->
-        <View
-            android:id="@+id/view3"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#cccccc"
-            app:layout_constraintBottom_toTopOf="@+id/activity_main_tablayout" />
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/activity_main_tablayout"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:background="@android:color/white"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="@android:color/transparent"
-            app:tabMode="fixed">
-        </android.support.design.widget.TabLayout>
+        </com.bungabear.inubus.custom.NonSwipeViewPager>
 
     </android.support.constraint.ConstraintLayout>
 
+    <!-- drawer dim blur -->
     <com.ms_square.etsyblur.BlurringView
         app:radius="4"
         app:overlayColor="#50000000"
         android:id="@id/blurring_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.ms_square.etsyblur.BlurringView>
+
+    <!-- popup dim blur -->
+    <com.ms_square.etsyblur.BlurringView
+        app:radius="4"
+        app:overlayColor="#50000000"
+        android:id="@+id/activity_main_popup_blur"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </com.ms_square.etsyblur.BlurringView>
@@ -117,7 +105,6 @@
         <include layout="@layout/custom_info_drawer"/>
 
     </android.support.design.widget.NavigationView>
-
 
 </android.support.v4.widget.DrawerLayout>
 
