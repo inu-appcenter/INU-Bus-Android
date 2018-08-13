@@ -10,7 +10,7 @@ import retrofit2.http.Query
  * Created by Minjae Son on 2018-08-07.
  */
 
-interface RetrofitService{
+interface BusRetrofitService{
 
     @GET("/arrivalInfo")
     fun getArrivalInfo() : Call<ArrivalInfoModel>
