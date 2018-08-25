@@ -25,4 +25,11 @@
 
     </style>
 
+    <style name="AppTheme.Popup" parent="AppTheme">
+        <item name="android:statusBarColor">@color/colorPrimaryDim</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
 </resources>

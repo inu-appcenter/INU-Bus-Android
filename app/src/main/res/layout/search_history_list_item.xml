@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.bungabear.inubus.model.SearchHistoryItem"/>
+            type="com.inu.bus.model.DBSearchHistoryItem"/>
     </data>
 
     <android.support.constraint.ConstraintLayout

@@ -1,126 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="startTime"
+            type="String"/>
 
+        <variable
+            name="endTime"
+            type="String"/>
+
+        <variable
+            name="no"
+            type="String"/>
+
+        <variable
+            name="listener"
+            type="com.inu.bus.activity.RouteActivity"/>
+    </data>
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="68.5dp"
-        android:layout_marginTop="-3dp">
-
-        <TextView
-            android:layout_marginTop="3dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:id="@+id/route_busno"
-            android:text="6"
-            android:textSize="33sp"
-            android:textColor="#2f60ce"
-            android:fontFamily="@font/source_sans_roman_regula"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="236.8dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_dialog_button">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_marginTop="3dp"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
-                <TextView
-                    android:text="첫차"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/nanum_square_b"
-                    android:textSize="13sp"
-                    android:textColor="#ffffff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/route_start"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/nanum_square_b"
-                    android:textSize="13sp"
-                    android:text="5:00"
-                    android:textColor="#ffffff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_marginTop="3dp"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
-                <TextView
-                    android:text="막차"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/nanum_square_b"
-                    android:textSize="13sp"
-                    android:textColor="#ffffff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_gravity="center"
-                    android:id="@+id/route_end"
-                    android:fontFamily="@font/nanum_square_b"
-                    android:textSize="13sp"
-                    android:text="23:00"
-                    android:textColor="#ffffff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_marginTop="3dp"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
-                <TextView
-                    android:text="요금"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/nanum_square_b"
-                    android:textSize="13sp"
-                    android:textColor="#ffffff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/route_fee"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/nanum_square_b"
-                    android:textSize="13sp"
-                    android:text="1250원"
-                    android:textColor="#ffffff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_route_activity_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        android:orientation="vertical"
-        tools:listitem="@layout/recycler_route_item">
 
-    </android.support.v7.widget.RecyclerView>
-</LinearLayout>
+        android:orientation="vertical">
+
+        <android.support.constraint.ConstraintLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="68.5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center_vertical"
+            android:layout_marginTop="-3dp">
+
+            <ImageButton
+                android:id="@+id/btn_activity_route_close"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center"
+                android:onClick="@{()->listener.btnCloseClicked()}"
+                android:padding="9dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_arrow_left_white"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/route_busno"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/route_busno" />
+
+            <TextView
+                android:id="@+id/route_busno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21.5dp"
+                android:fontFamily="@font/source_sans_roman_regula"
+                android:gravity="center"
+                android:text="@{no}"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_activity_route_close"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="6" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="41dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout4"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="첫차"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/route_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="@{startTime}"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp"
+                    tools:text="05:30" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="34dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="막차"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/route_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="@{endTime}"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp"
+                    tools:text="23:00" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="31.5dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="요금"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/route_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:text="원"
+                    android:textColor="#ffffff"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_route_activity_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            tools:listitem="@layout/recycler_route_item">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+</layout>

@@ -5,9 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View"/>
+        <import type="com.inu.bus.recycler.RecyclerAdapterRoute.Direction"/>
         <variable
             name="item"
-            type="com.bungabear.inubus.adapter.RouteRecyclerAdapter.CustomItem"/>
+            type="com.inu.bus.recycler.RecyclerAdapterRoute.CustomItem"/>
     </data>
     <!--// 가운데 선을 위한 값. 1이 시작점이라 아래선, 2이 끝점이라 윗선, 3은 중간점들로 전체 4는 회차점 표시-->
     <!--var state: Int = 0-->
@@ -29,10 +30,10 @@
             android:layout_marginRight="12dp"
             android:layout_weight="1"
             android:fontFamily="@font/nanum_square_r"
-            android:text="@{item.direction == 2 ? item.stopName : ``}"
+            android:text="@{item.direction == Direction.LEFT ? item.stopName : ``}"
             android:textColor="#000000"
             android:textSize="12sp"
-            android:visibility="@{item.direction == 2 ? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{item.direction == Direction.LEFT ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toLeftOf="@id/route_circle"
             app:layout_constraintTop_toTopOf="parent"
@@ -41,39 +42,16 @@
         <View
             android:id="@+id/route_line_middle"
             android:layout_width="match_parent"
-            android:layout_height="41dp"
+            android:layout_height="49dp"
             android:background="@drawable/bg_route_line"
             />
 
-        <!--<View-->
-        <!--android:id="@+id/route_line_middle"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="41dp"-->
-        <!--android:background="@drawable/bg_route_line"-->
-        <!--android:visibility="@{item.state == 3 ? View.VISIBLE : View.INVISIBLE}" />-->
-
-        <!--<View-->
-        <!--android:id="@+id/route_line_start"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="41dp"-->
-        <!--android:layout_marginTop="21dp"-->
-        <!--android:background="@drawable/bg_route_line"-->
-        <!--android:visibility="@{item.state == 1 ? View.VISIBLE : View.INVISIBLE}" />-->
-
-        <!--<View-->
-        <!--android:id="@+id/route_line_end"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="41dp"-->
-        <!--android:layout_marginBottom="21dp"-->
-        <!--android:background="@drawable/bg_route_line"-->
-        <!--android:visibility="@{item.state == 2 ? View.VISIBLE : View.INVISIBLE}" />-->
-
-
         <ImageView
             android:id="@+id/route_circle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:layout_weight="1"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_route_circle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -87,10 +65,10 @@
             android:layout_marginLeft="12dp"
             android:layout_weight="1"
             android:fontFamily="@font/nanum_square_r"
-            android:text="@{item.direction == 1 ? item.stopName : ``}"
+            android:text="@{item.direction == Direction.RIGHT ? item.stopName : ``}"
             android:textColor="#000000"
             android:textSize="12sp"
-            android:visibility="@{item.direction == 1 ? View.VISIBLE : View.INVISIBLE}"
+            android:visibility="@{item.direction == Direction.RIGHT ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/route_circle"
             app:layout_constraintTop_toTopOf="parent"

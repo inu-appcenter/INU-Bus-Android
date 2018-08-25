@@ -5,10 +5,10 @@
     <data>
         <variable
             name="data"
-            type="com.bungabear.inubus.model.InquireModel"/>
+            type="com.inu.bus.model.InquireModel"/>
         <variable
             name="listener"
-            type="com.bungabear.inubus.activity.InquireActivity"/>
+            type="com.inu.bus.activity.InquireActivity"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -35,7 +35,7 @@
                     android:layout_height="29.5dp"
                     android:layout_marginLeft="9.5dp"
                     android:scaleType="center"
-                    android:src="@drawable/ic_baseline_close"
+                    android:src="@drawable/vt_close"
                     android:background="?attr/selectableItemBackground"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

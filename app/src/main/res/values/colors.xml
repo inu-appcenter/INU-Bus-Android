@@ -2,6 +2,7 @@
 <resources>
     <!--액션바-->
     <color name="colorPrimary">#3179bd</color>
+    <color name="colorPrimaryDim">#235383</color>
     <color name="colorAccent">@color/colorPrimary</color>
 
     <!--노티바 색상 sdk23부터 커스텀가능-->
