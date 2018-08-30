@@ -4,10 +4,11 @@ import android.app.Activity
 import android.databinding.ObservableField
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import com.inu.bus.Config
 import com.inu.bus.model.ArrivalFromNodeInfo
 import com.inu.bus.model.ArrivalToNodeInfo
 import com.inu.bus.model.BusInformation
+import com.inu.bus.msgServerAddr
+import com.inu.bus.serverAddr
 import com.inu.bus.util.Singleton.myPackageName
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,8 +19,8 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 
 object Singleton{
-    val retrofit = Retrofit.Builder().baseUrl(Config.serverAddr).addConverterFactory(GsonConverterFactory.create()).build().create(BusRetrofitService::class.java)
-    val msgRetrofit = Retrofit.Builder().baseUrl(Config.msgServerAddr).addConverterFactory(GsonConverterFactory.create()).build().create(MsgRetrofitService::class.java)
+    val retrofit = Retrofit.Builder().baseUrl(serverAddr).addConverterFactory(GsonConverterFactory.create()).build().create(BusRetrofitService::class.java)
+    val msgRetrofit = Retrofit.Builder().baseUrl(msgServerAddr).addConverterFactory(GsonConverterFactory.create()).build().create(MsgRetrofitService::class.java)
     val busInfo  = ObservableField(mutableMapOf<String, BusInformation>())
     var arrivalFromInfo = ObservableField<ArrayList<ArrivalFromNodeInfo>>()
     var arrivalToInfo = ObservableField<ArrayList<ArrivalToNodeInfo>>()
@@ -35,6 +36,14 @@ object Singleton{
         }
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
+
+    val busCost = mutableMapOf(
+            Pair("6405", 2600),
+            Pair("1301", 2650),
+            Pair("3002", 2400),
+            Pair("92", 950),
+            Pair("else", 1250)
+    )
 }
 
 enum class LocalIntent(val value : String) : CharSequence by value {

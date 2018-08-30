@@ -4,25 +4,37 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="23.5dp"
+        android:layout_height="28dp"
         android:gravity="center_vertical">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="12dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginRight="8dp"
             android:layout_marginStart="15dp"
             android:fontFamily="@font/nanum_square_r"
+            android:gravity="bottom"
+            android:inputType="textMultiLine"
+            android:maxLines="1"
+            android:singleLine="true"
             android:text="계산한 값으로 정확하지 않습니다"
             android:textColor="@color/warn_red"
-            android:textSize="10sp"
+            app:autoSizeMaxTextSize="10sp"
+            app:autoSizeMinTextSize="4sp"
+            app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout"
             app:layout_constraintStart_toStartOf="parent" />
 
+
+
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="182.5dp"
-            android:layout_height="25.5dp"
+            android:layout_height="match_parent"
             android:layout_marginRight="34.5dp"
             android:background="@drawable/bg_arrival_header_title"
             android:orientation="horizontal"
