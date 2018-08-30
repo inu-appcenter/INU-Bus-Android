@@ -17,6 +17,10 @@
             type="String"/>
 
         <variable
+            name="fee"
+            type="String"/>
+
+        <variable
             name="listener"
             type="com.inu.bus.activity.RouteActivity"/>
     </data>
@@ -38,8 +42,9 @@
                 android:id="@+id/btn_activity_route_close"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:background="?android:attr/selectableItemBackground"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center"
@@ -49,9 +54,9 @@
                 android:src="@drawable/ic_arrow_left_white"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/route_busno"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/route_busno" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/route_busno"
@@ -155,12 +160,11 @@
                     android:textSize="13sp" />
 
                 <TextView
-                    android:id="@+id/route_fee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/nanum_square_b"
-                    android:text="원"
+                    android:text="@{fee}"
                     android:textColor="#ffffff"
                     android:textSize="13sp" />
 

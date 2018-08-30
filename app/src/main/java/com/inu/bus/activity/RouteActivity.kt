@@ -17,21 +17,30 @@ import com.inu.bus.util.Singleton
 
 class RouteActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityRouteBinding
+    private lateinit var mBinding: ActivityRouteBinding
     private lateinit var mRvRoute : RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_route)
-        binding.listener = this
-        mRvRoute = binding.rvRouteActivityRecycler
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_route)
+        mBinding.listener = this
+        mRvRoute = mBinding.rvRouteActivityRecycler
 
         // 상단 정보 설정
         val routeNo = intent.getStringExtra("routeNo")
         val routeInfo = Singleton.busInfo.get()!![routeNo]!!
-        binding.no = routeNo
-        binding.startTime = String.format("%02d:%02d", routeInfo.start/100, routeInfo.start%100)
-        binding.endTime = String.format("%02d:%02d", routeInfo.end/100, routeInfo.end%100)
+        mBinding.no = routeNo
+        mBinding.startTime = String.format("%02d:%02d", routeInfo.start/100, routeInfo.start%100)
+        mBinding.endTime = String.format("%02d:%02d", routeInfo.end/100, routeInfo.end%100)
+        var fee : Int? = null
+
+        Singleton.busCost.forEach { no, cost ->
+            if(routeNo == no){
+                fee = cost
+            }
+        }
+        fee = fee?: Singleton.busCost["else"]
+        mBinding.fee = "${fee}원"
 
         // 노선 정보 설정
         val routeList = routeInfo.nodeList
