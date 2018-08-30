@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="item"
+            type="com.inu.bus.model.DBSearchHistoryItem"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="36.5dp">
+
+        <TextView
+            android:id="@+id/tv_autocomplete_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="29dp"
+            android:fontFamily="@font/nanum_square_b"
+            android:textColor="#838383"
+            android:textSize="12sp"
+            android:text="@{item.name}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="풍림아이원 2단지" />
+
+
+        <TextView
+            android:id="@+id/tv_autocomplete_item_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/nanum_square_r"
+            android:textColor="#838383"
+            android:textSize="12sp"
+            android:text="@{item.date}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_autocomplete_item_delete"
+            app:layout_constraintHorizontal_bias="0.725"
+            app:layout_constraintStart_toStartOf="@+id/tv_autocomplete_item_name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.476"
+            tools:text="2018.08.10" />
+
+
+        <Button
+            android:id="@+id/btn_autocomplete_item_delete"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginRight="39dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/nanum_square_r"
+            android:textColor="#838383"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="X" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="actionbar_height">43.5dp</dimen>
+
+    <dimen name="searchview_textsize">12.4sp</dimen>
+    <dimen name="searchview_height">24.5dp</dimen>
+    <dimen name="searchview_width">257.66dp</dimen>
+    <dimen name="searchview_margin_top">6dp</dimen>
+    <dimen name="searchview_margin_bottom">6dp</dimen>
+    <dimen name="searchview_margin_left">11.26dp</dimen>
+
+    <dimen name="searchview_magicon_size">14.7dp</dimen>
+    <dimen name="searchview_magicon_margin_left">14.7dp</dimen>
+    <dimen name="searchview_magicon_margin_right">8.92dp</dimen>
+
+    <dimen name="infoicon_size">22.5dp</dimen>
+    <dimen name="infoicon_margin_right">7dp</dimen>
+
+    <dimen name="seperator_height">12.4dp</dimen>
+    <dimen name="seperator_font_size">8.4sp</dimen>
+
+    <dimen name="recycler_margin_left">11.87dp</dimen>
+
+    <dimen name="bus_num_margin_top">12.56dp</dimen>
+    <dimen name="bus_num_margin_bottom">12.56dp</dimen>
+    <dimen name="bus_num_margin_left">12.13dp</dimen>
+    <dimen name="bus_num_textsize">25.4sp</dimen>
+    <dimen name="bus_num_width">120dp</dimen>
+
+    <dimen name="bus_num_info_textsize">12.74dp</dimen>
+    <dimen name="bus_num_info_width">84.06dp</dimen>
+
+    <dimen name="bus_favicon_padding">2.34dp</dimen>
+    <dimen name="bus_favicon_size">14.126dp</dimen>
+
+    <dimen name="toggle_width">120.22406dp</dimen>
+    <dimen name="toggle_height">20.8dp</dimen>
+    <dimen name="toggle_margin_top">10.66dp</dimen>
+
+    <dimen name="arrival_margin_top">17.6dp</dimen>
+    <dimen name="arrival_tabbar_height">41.34dp</dimen>
+
+    <dimen name="destination_margin_top">15dp</dimen>
+
+    <dimen name="info_drawer_width">207.72dp</dimen>
+    
+    <dimen name="dialog_width">164dp</dimen>
+
+    <dimen name="_0dp">0dp</dimen>
+    <dimen name="_21dp">21dp</dimen>
+    <!--<dimen name="dialog_height">238.8dp</dimen>-->
+</resources>

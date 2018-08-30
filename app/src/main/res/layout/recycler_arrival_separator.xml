@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/tv_section"
+            android:layout_width="match_parent"
+            android:layout_height="16.5dp"
+            android:background="@color/drawer_background_gray"
+            android:fontFamily="@font/nanum_square_b"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/recycler_margin_left"
+            tools:text="간선, 좌석버스"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

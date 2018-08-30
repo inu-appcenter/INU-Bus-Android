@@ -1,22 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    >
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/actionbar_height"
+    android:background="@color/colorPrimary"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/iv_icon"
-        android:src="@drawable/ic_appicon"
-        android:transitionName="appicon"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_title"
-        android:textSize="30sp"
-        android:textColor="@color/main_color"
-        android:text=" INU BUS"/>
-</LinearLayout>
+    <AutoCompleteTextView
+        android:id="@+id/actionbar_searchView"
+        android:layout_width="0dp"
+        android:layout_height="29.5dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginRight="21.5dp"
+        android:background="@drawable/bg_rounded_coner_searchbox"
+        android:gravity="center_vertical"
+        android:hint="버스/정류장 검색"
+        android:imeOptions="actionSearch"
+        android:inputType="textAutoComplete"
+        android:lines="1"
+        android:maxLines="1"
+        android:paddingLeft="20dp"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_actionbar_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_actionbar_info"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginRight="20.625dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_info_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
