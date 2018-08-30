@@ -94,4 +94,5 @@ class ArrivalFragmentTab : Fragment() {
         super.onResume()
         mAdapter.isShowing.set(isShowing)
     }
+
 }

@@ -5,9 +5,9 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.inu.bus.databinding.RecyclerArrivalBitzonSeparatorBinding
 import com.inu.bus.databinding.RecyclerArrivalHeaderBinding
 import com.inu.bus.databinding.RecyclerArrivalItemBinding
-import com.inu.bus.databinding.RecyclerArrivalSeparatorBinding
 import com.inu.bus.model.ArrivalToNodeInfo
 import com.inu.bus.model.RecyclerArrivalItem
 import com.inu.bus.util.ArrivalInfoDiffUtil
@@ -31,7 +31,7 @@ class RecyclerAdapterBITZonArrival(val mStrBusStop : String) : RecyclerView.Adap
             RecyclerArrivalItem.ItemType.Header->
                 ViewHolderArrivalHeader(RecyclerArrivalHeaderBinding.inflate(layoutInflater, parent, false))
             RecyclerArrivalItem.ItemType.SectionHeader->
-                ViewHolderArrivalSection(RecyclerArrivalSeparatorBinding.inflate(layoutInflater, parent, false))
+                ViewHolderArrivalBitZonSection(RecyclerArrivalBitzonSeparatorBinding.inflate(layoutInflater, parent, false))
             RecyclerArrivalItem.ItemType.ArrivalInfo->
                 ViewHolderArrivalItem(RecyclerArrivalItemBinding.inflate(layoutInflater, parent, false), isShowing)
         }
@@ -41,9 +41,10 @@ class RecyclerAdapterBITZonArrival(val mStrBusStop : String) : RecyclerView.Adap
         when(mArrivalItems[position].itemType){
             RecyclerArrivalItem.ItemType.Header->{ }
             RecyclerArrivalItem.ItemType.SectionHeader->{
-                (holder as ViewHolderArrivalSection).bind(mArrivalItems[position].sectionHeader!!, true, mArrivalItems[position].needButton )
+                (holder as ViewHolderArrivalBitZonSection).bind(mArrivalItems[position].sectionHeader!!, mArrivalItems[position].needButton )
             }
             RecyclerArrivalItem.ItemType.ArrivalInfo->{
+                val customInfo = mArrivalItems[position].arrivalInfo!!
                 (holder as ViewHolderArrivalItem).bind(mArrivalItems[position].arrivalInfo!!)
             }
         }
@@ -54,7 +55,12 @@ class RecyclerAdapterBITZonArrival(val mStrBusStop : String) : RecyclerView.Adap
 
     fun applyDataSet(items: ArrayList<ArrivalToNodeInfo>) {
         val newDataSet = ArrayList<RecyclerArrivalItem>()
-        newDataSet.add(RecyclerArrivalItem("지식정보단지", true))
+
+        if(items.isEmpty()){
+            mArrivalItems.clear()
+            notifyDataSetChanged()
+            return
+        }
 
         // 정류장 순 정렬
         val sorted = items.sortedWith(
@@ -63,8 +69,11 @@ class RecyclerAdapterBITZonArrival(val mStrBusStop : String) : RecyclerView.Adap
                 }
         )
 
-        sorted.forEach {
+        sorted.forEachIndexed { index, it ->
             if(it.id == ArrivalToNodeInfo.ID.ICB164000395){
+                if(index != 0){
+                    newDataSet.add(0, RecyclerArrivalItem("지식정보단지", true))
+                }
                 newDataSet.add(RecyclerArrivalItem("인천대입구"))
             }
             it.data.sortWith(kotlin.Comparator { o1, o2 ->
@@ -74,7 +83,15 @@ class RecyclerAdapterBITZonArrival(val mStrBusStop : String) : RecyclerView.Adap
                 }
             })
 
-            it.data.forEach { item -> newDataSet.add(RecyclerArrivalItem(item)) }
+            it.data.forEach { item ->
+                // 출구 정보를 보여주기위해 배차간격 텍스트를 재활용
+                if(it.id.exitName != ""){
+                    item.intervalString = it.id.exitName
+                }
+                else {
+                    item.intervalString = "${item.interval}분"
+                }
+                newDataSet.add(RecyclerArrivalItem(item)) }
         }
 
         val diffUtil = ArrivalInfoDiffUtil(mArrivalItems, newDataSet)

@@ -77,11 +77,6 @@
             </LinearLayout>
         </LinearLayout>
 
-
-        <!-- Toggle Button -->
-
-        <!-- 시간/목적지 ViewPager -->
-
     </android.support.constraint.ConstraintLayout>
 
     <!-- drawer dim blur id 바꾸면 안됨-->
@@ -111,7 +106,8 @@
         android:layout_gravity="end"
         android:background="@android:color/transparent">
 
-        <include layout="@layout/custom_info_drawer"/>
+        <include layout="@layout/custom_info_drawer"
+            android:id="@+id/activity_main_drawer"/>
 
     </android.support.design.widget.NavigationView>
 

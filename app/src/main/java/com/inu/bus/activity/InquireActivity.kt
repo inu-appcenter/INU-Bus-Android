@@ -24,12 +24,13 @@ import retrofit2.Response
 class InquireActivity : AppCompatActivity() {
 
     private val data = InquireModel()
+    private lateinit var mBinding : ActivityInquireBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<ActivityInquireBinding>(this, R.layout.activity_inquire)
-        binding.data = data
-        binding.listener = this
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_inquire)
+        mBinding.data = data
+        mBinding.listener = this
 
         data.addOnPropertyChangedCallback(mChangeCallbackListener)
 //        data.contact.addOnPropertyChangedCallback(mChangeCallbackListener)
@@ -78,6 +79,7 @@ class InquireActivity : AppCompatActivity() {
                     popupView.setWindow(window)
                 }
                 popupView.show()
+//                popupView.showAtLocation(mBinding.root, Gravity.CENTER, 0, 0)
             }
         })
     }

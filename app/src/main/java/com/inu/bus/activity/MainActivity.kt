@@ -6,17 +6,14 @@ import android.os.Bundle
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
-import android.view.inputmethod.EditorInfo
 import android.widget.AutoCompleteTextView
 import android.widget.ImageButton
 import android.widget.LinearLayout
-import android.widget.TextView
 import com.inu.bus.MyService
 import com.inu.bus.R
+import com.inu.bus.custom.IconPopUp
 import com.inu.bus.fragment.ArrivalFragment
 import com.inu.bus.fragment.DestinationFragment
-import com.inu.bus.model.DBSearchHistoryItem
-import com.inu.bus.recycler.SearchHistoryAdapter
 import com.inu.bus.recycler.ViewPagerAdapter
 import com.inu.bus.util.AppDatabase
 import com.inu.bus.util.LocalIntent
@@ -25,6 +22,7 @@ import com.ms_square.etsyblur.BlurringView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.custom_actionbar.*
 import kotlinx.android.synthetic.main.custom_info_drawer.*
+import kotlinx.android.synthetic.main.custom_info_drawer.view.*
 import java.lang.ref.WeakReference
 
 
@@ -47,7 +45,7 @@ class MainActivity : AppCompatActivity(){
         lateinit var mWrBtnInfo : WeakReference<ImageButton>
     }
 
-    private val mSearchAdapter : SearchHistoryAdapter by lazy { SearchHistoryAdapter(this, R.layout.search_history_list_item) }
+//    private val mSearchAdapter : SearchHistoryAdapter by lazy { SearchHistoryAdapter(this, R.layout.search_history_list_item) }
     private val mViewPagerAdapter by lazy { ViewPagerAdapter(supportFragmentManager, this) }
     private val mBroadcastManager by lazy { LocalBroadcastManager.getInstance(this) }
 
@@ -65,15 +63,18 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun setActionBar(){
-        actionbar_searchView.setAdapter(mSearchAdapter)
-        actionbar_searchView.setOnEditorActionListener( TextView.OnEditorActionListener { v, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                DB.searchHistoryDAO().insert(DBSearchHistoryItem(name = v.text.toString()))
-                mSearchAdapter.refreshHistory()
-                return@OnEditorActionListener true
-            }
-            false
-        })
+        // 젤리빈 호환
+        supportActionBar?.hide()
+
+//        actionbar_searchView.setAdapter(mSearchAdapter)
+//        actionbar_searchView.setOnEditorActionListener( TextView.OnEditorActionListener { v, actionId, _ ->
+//            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+//                DB.searchHistoryDAO().insert(DBSearchHistoryItem(name = v.text.toString()))
+//                mSearchAdapter.refreshHistory()
+//                return@OnEditorActionListener true
+//            }
+//            false
+//        })
     }
 
     private fun setDrawer(){
@@ -82,10 +83,14 @@ class MainActivity : AppCompatActivity(){
         btn_actionbar_info.setOnClickListener {
             drawer_layout.openDrawer(Gravity.END)
         }
+
         drawer_btn_ask.setOnClickListener {
             startActivity(Intent(this, InquireActivity::class.java))
             drawer_layout.closeDrawer(Gravity.END)
         }
+
+        activity_main_drawer.btn_back.setOnClickListener { drawer_layout.closeDrawer(Gravity.END) }
+
         val pInfo = this.packageManager.getPackageInfo(packageName, 0)
         tv_drawer_version.text = pInfo.versionName
         BlurSupport.addTo(drawer_layout)
@@ -125,6 +130,7 @@ class MainActivity : AppCompatActivity(){
         when {
             actionbar_searchView.text.toString() != "" -> actionbar_searchView.text.clear()
             drawer_layout.isDrawerOpen(Gravity.END) -> drawer_layout.closeDrawer(Gravity.END)
+            IconPopUp.mInstance?.get() != null -> IconPopUp.mInstance?.get()?.dismiss()
             else -> {
                 super.onBackPressed()
             }

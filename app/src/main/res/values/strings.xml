@@ -2,13 +2,13 @@
 
     <!-- 뷰에 들어가는 텍스트 -->
     <string name="app_name">INU Bus</string>
-    <string name="interval">배차간격</string>
-    <string name="arrival_before">도착까지</string>
-    <string name="arrival_after">지나간지</string>
-    <string name="after">후</string>
-    <string name="before">전</string>
-    <string name="info">정보</string>
+    <!--<string name="interval">배차간격</string>-->
+    <!--<string name="arrival_before">도착까지</string>-->
+    <!--<string name="arrival_after">지나간지</string>-->
+    <!--<string name="after">후</string>-->
+    <!--<string name="before">전</string>-->
+    <!--<string name="info">정보</string>-->
     <string name="search_hint">버스정류장 검색</string>
-    <string name="minute">분</string>
+    <!--<string name="minute">분</string>-->
 
 </resources>

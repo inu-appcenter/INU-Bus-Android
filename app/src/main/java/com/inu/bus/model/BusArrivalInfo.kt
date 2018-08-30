@@ -23,6 +23,8 @@ data class BusArrivalInfo(
         @SerializedName("interval")
         val interval : Int = -1,
 
+        var intervalString : String = "",
+
         @SerializedName("type")
         val type : BusInformation.BusType? = null,
 

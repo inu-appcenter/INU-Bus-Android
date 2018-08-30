@@ -16,11 +16,12 @@ class SplashActivity : AppCompatActivity(){
 
     private var mPaused = false
     private var isAnimationEnd = false
+    private var mShouldFinish = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        startService(Intent(applicationContext, MyService::class.java))
         setContentView(R.layout.activity_splash)
-
         activity_splash_layout.alpha = 0f
         activity_splash_layout
                 .animate()
@@ -29,7 +30,7 @@ class SplashActivity : AppCompatActivity(){
                 .setListener(animationListener)
                 .start()
 
-        startService(Intent(applicationContext, MyService::class.java))
+
     }
 
     private var animationListener = object : Animator.AnimatorListener{
@@ -49,7 +50,7 @@ class SplashActivity : AppCompatActivity(){
 
     private fun nextActivity(){
         startActivity(Intent(applicationContext, MainActivity::class.java))
-        finish()
+        mShouldFinish = true
     }
 
     override fun onResume() {
@@ -63,5 +64,9 @@ class SplashActivity : AppCompatActivity(){
     override fun onPause() {
         super.onPause()
         mPaused = true
+        if(mShouldFinish){
+            finish()
+        }
     }
+
 }

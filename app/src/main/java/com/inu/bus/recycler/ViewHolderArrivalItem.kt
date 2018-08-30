@@ -16,15 +16,16 @@ import java.util.*
  * Created by Minjae Son on 2018-08-25.
  */
 
-class ViewHolderArrivalItem(private val binding : RecyclerArrivalItemBinding, private val isShowing : ObservableBoolean) : RecyclerView.ViewHolder(binding.root) {
+class ViewHolderArrivalItem(private val mBinding : RecyclerArrivalItemBinding, private val isShowing : ObservableBoolean) : RecyclerView.ViewHolder(mBinding.root) {
 
     private var needTick = false
     private var mTimer : Timer? = null
     private var currentTask : TimerTask? = null
     private fun newTimerTask() : TimerTask {return object : TimerTask() {
         override fun run() {
-//            Log.d(Singleton.LOG_TAG, "$mStrBusStop : ${binding.data!!.no} is tick")
-            sendTime(binding.data!!)
+//            Log.d(Singleton.LOG_TAG, "$mStrBusStop : ${mBinding.data!!.no} is tick")
+            currentTask = this
+            sendTime(mBinding.data!!)
             if(needTick){
                 mTimer?.cancel()
                 mTimer = Timer()
@@ -32,18 +33,18 @@ class ViewHolderArrivalItem(private val binding : RecyclerArrivalItemBinding, pr
             }
         }}
     }
-    private val mHandler by lazy { HandlerArrivalText(binding.recyclerArrival) }
+    private val mHandler by lazy { HandlerArrivalText(mBinding.recyclerArrival) }
 
     fun bind(data : BusArrivalInfo){
-        binding.data = data
-        binding.listener = this
-        sendTime(binding.data!!)
+        mBinding.data = data
+        mBinding.listener = this
+        sendTime(mBinding.data!!)
 
         isShowing.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 if(sender is ObservableBoolean){
                     if(sender.get()){
-                        sendTime(binding.data!!)
+                        sendTime(mBinding.data!!)
                         startTick()
                     }
                     else {
@@ -102,7 +103,7 @@ class ViewHolderArrivalItem(private val binding : RecyclerArrivalItemBinding, pr
 
     fun onClick(data : BusArrivalInfo){
         Log.d("test", "OnClick called")
-        val context = binding.root.context
+        val context = mBinding.root.context
         val intent = Intent(context, RouteActivity::class.java)
         intent.putExtra("routeNo", data.no)
         context.startActivity(intent)

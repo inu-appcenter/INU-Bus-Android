@@ -21,9 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity"/>
-        <activity android:name=".activity.RouteActivity"/>
-        <activity android:name=".activity.InquireActivity"/>
+        <activity android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.RouteActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.InquireActivity"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

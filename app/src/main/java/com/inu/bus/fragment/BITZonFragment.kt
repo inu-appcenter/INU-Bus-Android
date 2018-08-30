@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.inu.bus.R
 import com.inu.bus.activity.MainActivity
+import com.inu.bus.model.ArrivalToNodeInfo
 import com.inu.bus.recycler.RecyclerAdapterBITZonArrival
 import com.inu.bus.util.LocalIntent
 import com.inu.bus.util.Singleton
@@ -59,6 +60,12 @@ class BITZonFragment : Fragment(){
     fun dataRefresh(){
         fragment_arrival_bitzon_swiperefresh?.isRefreshing = false
         Singleton.arrivalToInfo.get()?.let{
+            val notEmptyDataSet = ArrayList<ArrivalToNodeInfo>()
+            it.forEach { arrivalData->
+                if(arrivalData.data.isNotEmpty()){
+                    notEmptyDataSet.add(arrivalData)
+                }
+            }
             mAdapter.applyDataSet(it)
         }
     }
