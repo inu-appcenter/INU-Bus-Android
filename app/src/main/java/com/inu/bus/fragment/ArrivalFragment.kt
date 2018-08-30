@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.databinding.Observable
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -17,14 +18,20 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import com.inu.bus.R
 import com.inu.bus.activity.MainActivity
 import com.inu.bus.recycler.ViewPagerAdapter
 import com.inu.bus.util.LocalIntent
+import com.inu.bus.util.Singleton
 import com.inu.bus.util.Singleton.LOG_TAG
 import kotlinx.android.synthetic.main.custom_tabicon.view.*
-import kotlinx.android.synthetic.main.fragment_arrival_tab.*
+import kotlinx.android.synthetic.main.fragment_arrival_tabs.*
+
 
 /**
  * Created by Minjae Son on 2018-08-13.
@@ -35,6 +42,8 @@ class ArrivalFragment : Fragment(){
     private lateinit var mFm: FragmentManager
     private lateinit var mContext : Context
     private lateinit var mTabLayoutWrapper : LinearLayout
+    private lateinit var mFabRefresh : ImageButton
+    private lateinit var mFabRefreshAnimation : RotateAnimation
 
     companion object {
         fun newInstance(fm : FragmentManager, context : Context) : ArrivalFragment{
@@ -52,12 +61,14 @@ class ArrivalFragment : Fragment(){
     private val mViewPagerAdapter by lazy { ViewPagerAdapter(mFm, mContext) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_arrival_tab, container, false)
+        return inflater.inflate(R.layout.fragment_arrival_tabs, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        mTabLayoutWrapper = ll_fragment_arrival_tablayout_wrapper
+        mTabLayoutWrapper = ll_fragment_arrival_tabs_tablayout
         mBroadcastManager.registerReceiver(mBroadcastReceiver, IntentFilter(LocalIntent.NOTIFY_FRAGMENT_READY.value))
+        mBroadcastManager.registerReceiver(mBroadcastReceiver, IntentFilter(LocalIntent.ARRIVAL_DATA_REFRESH_REQUEST.value))
+
         // tab setting
         mTabIcons.forEachIndexed { index, it ->
             val v = LayoutInflater.from(mContext).inflate(R.layout.custom_tabicon, null, false)
@@ -72,14 +83,32 @@ class ArrivalFragment : Fragment(){
         mViewPagerAdapter.addFragment(ArrivalFragmentTab.newInstance(mContext, "frontgate"))
         mViewPagerAdapter.addFragment(BITZonFragment.newInstance(mContext))
 
-        fragment_arrival_viewpager.offscreenPageLimit = 4
-        fragment_arrival_viewpager.adapter = mViewPagerAdapter
-        fragment_arrival_viewpager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(fragment_arrival_tablayout))
-        fragment_arrival_viewpager.currentItem = 0
+        vp_fragment_arrival_tabs.offscreenPageLimit = 4
+        vp_fragment_arrival_tabs.adapter = mViewPagerAdapter
+        vp_fragment_arrival_tabs.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(fragment_arrival_tablayout))
+        vp_fragment_arrival_tabs.currentItem = 0
         setTabIcon(fragment_arrival_tablayout.getTabAt(0)!!, true)
 
-        fragment_arrival_viewpager.addOnPageChangeListener(mViewPagerPageChangeListener)
+        vp_fragment_arrival_tabs.addOnPageChangeListener(mViewPagerPageChangeListener)
         fragment_arrival_tablayout.addOnTabSelectedListener(mTabChangeListener)
+
+
+
+        mFabRefreshAnimation = RotateAnimation(0f, -360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
+        mFabRefreshAnimation.duration = 1000
+        mFabRefreshAnimation.repeatCount = -1
+        mFabRefreshAnimation.interpolator = AccelerateInterpolator()
+
+        mFabRefresh = ib_fragment_arrival_tabs_refresh
+        mFabRefresh.setOnClickListener {
+            mBroadcastManager.sendBroadcast(Intent(LocalIntent.ARRIVAL_DATA_REFRESH_REQUEST.value))
+            fabRefreshAnimation(true)
+        }
+        Singleton.arrivalToInfo.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                fabRefreshAnimation(false)
+            }
+        })
 
 //        val popupView = IconPopUp(mContext)
 //                .setBtnText("확인하였습니다")
@@ -98,7 +127,6 @@ class ArrivalFragment : Fragment(){
         val title = tab.customView!!.tv_tabicon
         icon.isChecked = selected
         title.isChecked = selected
-
     }
 
     // 모든 프래그먼트가 준비 완료되면 데이터 초기 데이터 Broadcast 시작
@@ -113,7 +141,18 @@ class ArrivalFragment : Fragment(){
                         mBroadcastManager.sendBroadcast(Intent(LocalIntent.FIRST_DATA_REQUEST.value))
                     }
                 }
+                LocalIntent.ARRIVAL_DATA_REFRESH_REQUEST.value -> fabRefreshAnimation(true)
             }
+        }
+    }
+
+    private fun fabRefreshAnimation(isRefresh : Boolean){
+        if(isRefresh){
+            mFabRefresh?.startAnimation(mFabRefreshAnimation)
+        }
+        else {
+            mFabRefresh?.animation?.repeatCount = 0
+//            mFabRefresh?.animate().rotation(0f).start()
         }
     }
 
@@ -126,7 +165,7 @@ class ArrivalFragment : Fragment(){
         }
 
         override fun onTabSelected(tab: TabLayout.Tab) {
-            fragment_arrival_viewpager.currentItem = tab.position
+            vp_fragment_arrival_tabs.currentItem = tab.position
             setTabIcon(tab, true)
         }
     }
@@ -162,7 +201,7 @@ class ArrivalFragment : Fragment(){
         override fun afterTextChanged(s: Editable?) {}
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            (fragment_arrival_viewpager.adapter as ViewPagerAdapter).fragments.forEach {
+            (vp_fragment_arrival_tabs.adapter as ViewPagerAdapter).fragments.forEach {
                 if(it is ArrivalFragmentTab){
                     it.filter(s.toString())
                 }

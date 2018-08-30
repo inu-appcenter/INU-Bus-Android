@@ -17,6 +17,7 @@ import com.inu.bus.util.Singleton.LOG_TAG
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 /**
  * Created by Minjae Son on 2018-08-07.
@@ -25,7 +26,8 @@ import retrofit2.Response
 class MyService : Service(){
 
     private val mBroadcastManager by lazy { LocalBroadcastManager.getInstance(applicationContext) }
-
+    private var mTimer : Timer? = null
+    private var currentTimerTask : TimerTask? = null
 
     override fun onBind(intent: Intent): IBinder? = null
 
@@ -39,8 +41,25 @@ class MyService : Service(){
         Log.d("test", "Service Started")
         requestNodeRoutes()
         requestArrivalInfo()
-
+        startAutoRefresh()
         return START_STICKY_COMPATIBILITY
+    }
+
+    private fun startAutoRefresh(){
+        currentTimerTask = newTimerTask()
+        mTimer = Timer()
+        mTimer!!.schedule(currentTimerTask,5000)
+    }
+
+    private fun newTimerTask() : TimerTask {return object : TimerTask() {
+        override fun run() {
+            requestArrivalInfo()
+            currentTimerTask?.cancel()
+            mTimer?.cancel()
+            currentTimerTask = this
+            mTimer = Timer()
+            mTimer!!.schedule(newTimerTask(), 30000)
+        }}
     }
 
     override fun onDestroy() {
@@ -55,7 +74,6 @@ class MyService : Service(){
                 //TODO 에러 표시
                 Log.e(LOG_TAG, "requestNodeRoutes", t)
 //                t.printStackTrace()
-//                stopSelf()
             }
             override fun onResponse(call: Call<ArrayList<BusInformation>>, response: Response<ArrayList<BusInformation>>) {
                 val newMap = mutableMapOf<String, BusInformation>()
@@ -68,6 +86,7 @@ class MyService : Service(){
     }
 
     private fun requestArrivalInfo(callback: (() -> Unit)? = null){
+        // TODO 콜백, 응답 단일처리
         Singleton.retrofit.getFromArrivalInfo().enqueue(object : Callback<ArrayList<ArrivalFromNodeInfo>>{
             override fun onFailure(call: Call<ArrayList<ArrivalFromNodeInfo>>, t: Throwable) {
                 //TODO 에러 표시
@@ -91,8 +110,8 @@ class MyService : Service(){
 
             override fun onResponse(call: Call<ArrayList<ArrivalToNodeInfo>>, response: Response<ArrayList<ArrivalToNodeInfo>>) {
                 Singleton.arrivalToInfo.set(response.body())
-                if(callback != null)
-                    callback()
+//                if(callback != null)
+//                    callback()
             }
         })
     }
@@ -123,6 +142,8 @@ class MyService : Service(){
                     }
                 }
                 LocalIntent.SERVICE_EXIT.value -> {
+                    mTimer?.cancel()
+                    currentTimerTask?.cancel()
                     stopSelf()
                 }
                 LocalIntent.ARRIVAL_DATA_REFRESH_REQUEST.value -> {

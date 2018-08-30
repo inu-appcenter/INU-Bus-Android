@@ -19,7 +19,7 @@ data class ArrivalToNodeInfo(
 //    ICB164000403 :'지식정보단지 3번출구 정류장
 //    ICB164000380 : 지식정보단지 4번출구 정류장
 //    ICB164000395 : 인천대입구 2번출구 정류장
-    enum class ID{
-        ICB164000373, ICB164000403, ICB164000380, ICB164000395
+    enum class ID(val exitName : String){
+        ICB164000373("2번출구"), ICB164000403("3번출구"), ICB164000380("4번출구"), ICB164000395("")
     }
 }

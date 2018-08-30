@@ -12,10 +12,8 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginLeft="34dp"
         android:layout_marginRight="34dp"
-        android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,11 +28,25 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="38dp"
             android:background="@drawable/bg_popup_rounded_coner"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.498">
+
+
+            <ImageView
+                android:id="@+id/iv_background_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_custom_popup_ok"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:id="@+id/ll_custom_popup_container"
@@ -45,6 +57,7 @@
                 android:paddingLeft="35dp"
                 android:paddingRight="35dp"
                 android:paddingTop="49dp"
+                android:maxHeight="300dp"
                 app:layout_constraintBottom_toTopOf="@+id/custom_popup_btn_divider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -93,9 +106,25 @@
             android:layout_height="76dp"
             android:background="@drawable/bg_popup_icon_rounded_coner"
             android:scaleType="center"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_custom_popup_title_on_icon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:fontFamily="@font/source_sans_roman_regula"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_custom_popup_icon"
+            app:layout_constraintEnd_toEndOf="@+id/iv_custom_popup_icon"
+            app:layout_constraintStart_toStartOf="@+id/iv_custom_popup_icon"
+            app:layout_constraintTop_toTopOf="@+id/iv_custom_popup_icon" />
 
     </android.support.constraint.ConstraintLayout>
 

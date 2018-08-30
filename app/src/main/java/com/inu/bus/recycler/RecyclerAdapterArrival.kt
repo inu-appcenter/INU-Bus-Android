@@ -74,6 +74,7 @@ class RecyclerAdapterArrival(val mStrBusStop : String) : RecyclerView.Adapter<Re
             // 현재 필요한 섹션 헤더만 추가
             mArrivalItems.add(RecyclerArrivalItem(group.key!!.value))
             group.value.forEach {
+                it.intervalString = "${it.interval}분"
                 mArrivalItems.add(RecyclerArrivalItem(it))
             }
         }

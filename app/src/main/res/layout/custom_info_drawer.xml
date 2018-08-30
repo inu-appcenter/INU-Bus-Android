@@ -5,8 +5,49 @@
     android:layout_width="282dp"
     android:layout_height="match_parent"
     android:background="#ccffffff"
-    android:layout_gravity="right"
+    android:layout_gravity="end"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="6.5dp"
+        android:padding="6.5dp"
+        android:scaleType="fitCenter"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_arrow_left_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:fontFamily="@font/nanum_square_r"
+        android:text="Information"
+        android:textColor="#838383"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_info"
+        app:layout_constraintEnd_toStartOf="@+id/iv_info"
+        app:layout_constraintTop_toTopOf="@+id/iv_info" />
+
+    <ImageView
+        android:id="@+id/iv_info"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginRight="20.625dp"
+        android:layout_marginTop="11dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_info_gray"
+        android:contentDescription="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv1"
