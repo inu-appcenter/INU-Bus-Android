@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popup_root"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    tools:background="@android:color/holo_green_light">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="34dp"
+        android:layout_marginRight="34dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.764"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- 아이콘 높이의 반만큼 marginTopo을 지정 -->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="38dp"
+            android:background="@drawable/bg_popup_rounded_coner"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.498">
+
+
+            <ImageView
+                android:id="@+id/iv_background_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_custom_popup_ok"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/ll_custom_popup_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="49dp"
+                android:paddingLeft="35dp"
+                android:paddingRight="35dp"
+                android:paddingTop="49dp"
+                android:maxHeight="300dp"
+                app:layout_constraintBottom_toTopOf="@+id/custom_popup_btn_divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_custom_popup_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nanum_square_b"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    tools:text="블라블랍ㄹ바ㅡㄹㄴㅇㄹㄴㅇㄹ\nasfdsdfasfdsa\n\ndfsaf awsre asf " />
+            </LinearLayout>
+
+            <!-- 버튼 미사용시 Divider도 같이 없앰  -->
+            <View
+                android:id="@+id/custom_popup_btn_divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#cccccc"
+                app:layout_constraintBottom_toTopOf="@+id/btn_custom_popup_ok" />
+
+            <Button
+                android:id="@+id/btn_custom_popup_ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@drawable/bg_popup_btn_background_ripple"
+                android:fontFamily="@font/nanum_square_b"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="확인했습니다" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/iv_custom_popup_icon"
+            android:layout_width="76dp"
+            android:layout_height="76dp"
+            android:background="@drawable/bg_popup_icon_rounded_coner"
+            android:scaleType="center"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_custom_popup_title_on_icon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:fontFamily="@font/source_sans_roman_regula"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_custom_popup_icon"
+            app:layout_constraintEnd_toEndOf="@+id/iv_custom_popup_icon"
+            app:layout_constraintStart_toStartOf="@+id/iv_custom_popup_icon"
+            app:layout_constraintTop_toTopOf="@+id/iv_custom_popup_icon" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <!-- popup dim blur -->
+</android.support.constraint.ConstraintLayout>

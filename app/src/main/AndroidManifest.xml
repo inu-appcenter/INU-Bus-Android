@@ -1,37 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bungabear.inubus">
+    package="com.inu.bus">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
-    <!-- 앱 아이콘도 벡터이미지를 지원하지만, SDK 22이하는 계단현상이 심하여 직접 변환해 넣어준다.. -->
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_appicon"
+        android:icon="@drawable/ic_launcher"
+        android:roundIcon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_appicon_round"
-        android:supportsRtl="false"
-        android:theme="@style/AppTheme"
-        >
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".BusInfoActivity"
-            android:screenOrientation="portrait">
+        <service android:name=".MyService"/>
+        <activity android:name=".activity.SplashActivity"
+            android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"
-            />
-        <activity
-            android:name=".AppInfoActivity"
+        <activity android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.RouteActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.InquireActivity"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

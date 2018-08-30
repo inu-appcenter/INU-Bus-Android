@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center">
+    
+    <CheckBox
+        android:id="@+id/iv_tabicon"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
+        android:button="@null"
+        android:clickable="false"
+        tools:background="@drawable/tabicon_engineer"
+        />
+
+    <CheckBox
+        android:id="@+id/tv_tabicon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/nanum_square_r"
+        android:clickable="false"
+        android:textSize="10sp"
+        android:textColor="@color/tabicon_textcolor"
+        tools:text="공대"
+        />
+</LinearLayout>

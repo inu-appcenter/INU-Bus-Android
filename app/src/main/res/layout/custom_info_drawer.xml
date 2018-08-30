@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="282dp"
+    android:layout_height="match_parent"
+    android:background="#ccffffff"
+    android:layout_gravity="end"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="6.5dp"
+        android:padding="6.5dp"
+        android:scaleType="fitCenter"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_arrow_left_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:fontFamily="@font/nanum_square_r"
+        android:text="Information"
+        android:textColor="#838383"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_info"
+        app:layout_constraintEnd_toStartOf="@+id/iv_info"
+        app:layout_constraintTop_toTopOf="@+id/iv_info" />
+
+    <ImageView
+        android:id="@+id/iv_info"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginRight="20.625dp"
+        android:layout_marginTop="11dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_info_gray"
+        android:contentDescription="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="41dp"
+        android:layout_marginTop="85dp"
+        android:fontFamily="@font/source_sans_roman_regula"
+        android:text="@string/app_name"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9.5dp"
+        android:fontFamily="@font/source_sans_roman_regula"
+        android:text="Version"
+        android:textColor="#000000"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@+id/tv1"
+        app:layout_constraintTop_toBottomOf="@+id/tv1" />
+
+    <TextView
+        android:id="@+id/tv_drawer_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="83.5dp"
+        android:fontFamily="@font/source_sans_roman_regula"
+        tools:text="2.0.0"
+        android:textColor="#838383"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+
+    <LinearLayout
+        android:id="@+id/drawer_btn_ask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="28.5dp"
+        app:layout_constraintStart_toStartOf="@+id/tv1"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_b"
+            android:text="문의사항"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6.8dp"
+            android:background="@drawable/ic_inquiry"
+            android:text="icon" />
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="0dp"
+        android:layout_height="1.5dp"
+        android:layout_marginTop="24dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/drawer_btn_ask" />
+
+
+    <LinearLayout
+        android:id="@+id/teaminfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="25.5dp"
+        app:layout_constraintStart_toStartOf="@+id/tv1"
+        app:layout_constraintTop_toBottomOf="@+id/view5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_r"
+            android:lineSpacingExtra="16sp"
+            android:text="개발자(Android)\n개발자(iOS)\n개발자(서버)\n디자인"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_r"
+            android:lineSpacingExtra="16sp"
+            android:layout_marginLeft="49.5dp"
+            android:text="손민재\n이준상\n임헌준\n김리현"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34.5dp"
+        android:fontFamily="@font/nanum_square_r"
+        android:gravity="left"
+        android:lineSpacingExtra="8.8sp"
+        android:text="이 데이터는 계산한 수치 값으로\n정확하지 않을 수 있습니다"
+        android:textColor="@color/warn_red"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv1"
+        app:layout_constraintTop_toBottomOf="@id/teaminfo" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_b"
+            android:gravity="center"
+            android:text="이 앱은 공공데이터를 이용한 앱입니다"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_r"
+            android:gravity="center"
+            android:text="This application uses public data"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

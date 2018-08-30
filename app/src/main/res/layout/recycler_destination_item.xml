@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/destination_header"
+            layout="@layout/recycler_arrival_separator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/destination_container"
+            app:layout_constraintStart_toStartOf="@+id/destination_container"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- 기본으로는 grid와 비슷한 형태이나 column 수가 아닌, width 차오름으로 줄바꿈
+            Child 속성에 layout_wrapBefore="true"를 주면 다음줄로 시작-->
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/destination_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="37.5dp"
+            android:paddingEnd="37.5dp"
+            app:flexWrap="wrap"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/destination_header">
+
+        </com.google.android.flexbox.FlexboxLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

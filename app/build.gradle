@@ -1,14 +1,19 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    compileSdkVersion 27
     defaultConfig {
-        applicationId "com.bungabear.inubus"
+        applicationId "com.inu.bus"
         minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 3
-        versionName "1.0.2"
+        targetSdkVersion 27
+        versionCode 2
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -17,21 +22,40 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
+    android {
+        defaultConfig {
+            renderscriptTargetApi 27
+            renderscriptSupportModeEnabled true
+        }
+    }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:26.0.2'
-    compile 'com.android.support:recyclerview-v7:26.0.2'
-    compile 'com.android.support:design:26.0.2'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
-    testCompile 'junit:junit:4.12'
-    compile 'com.jaredrummler:animated-svg-view:1.0.5'
+    def supportVersion = "27.1.1"
+    def retrofitVersion = "2.4.0"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:recyclerview-v7:$supportVersion"
+    implementation "com.android.support:appcompat-v7:$supportVersion"
+    implementation "com.android.support:design:$supportVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:3.9.1"
+    implementation "com.baoyz.pullrefreshlayout:library:1.2.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+//    implementation 'com.github.ceryle:SegmentedButton:v2.0.2'
+    implementation 'com.github.bungabear:SegmentedButton:v2.0.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.ms-square:etsyblur:0.2.1'
 
+    def room_version = "1.1.1"
+    implementation "android.arch.persistence.room:runtime:$room_version"
+    kapt  "android.arch.persistence.room:compiler:$room_version"
+
+    implementation 'com.google.android:flexbox:1.0.0'
 }

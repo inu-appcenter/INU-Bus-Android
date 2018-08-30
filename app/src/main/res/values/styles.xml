@@ -1,55 +1,54 @@
 <resources>
 
-    <style name="AppTheme" parent="@style/AppBaseTheme">
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@android:color/white</item>
-
+        <item name="android:actionBarSize">@dimen/actionbar_height</item>
+        <item name="actionBarSize">@dimen/actionbar_height</item>
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<item name="windowNoTitle">true</item>-->
     </style>
-
-    <!-- 액션바 색상 지정 -->
-    <style name="AppBaseTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <item name="actionBarStyle">@style/MyActionBar</item>
-    </style>
-
-    <style name="MyActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
-        <item name="titleTextStyle">@style/MyTitleTextStyle</item>
-    </style>
-
-    <style name="MyTitleTextStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/main_color</item>
-    </style>
-    <!-- 액션바 색상 지정 끝 -->
 
     <!-- 다이얼로그 테마-->
     <style name="AppTheme.Dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="buttonBarStyle">@style/buttonBarStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/buttonBarButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/buttonBarButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/buttonBarButtonStyle</item>
+
     </style>
 
+    <style name="buttonBarStyle" >
+        <item name="android:background">@color/colorPrimary</item>
+        <!--<item name="android:height">27.5dp</item>-->
+    </style>
+
+    <style name="buttonBarButtonStyle" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+
     <!-- 스플래시 화면을 위한 액션바 없는 테마 -->
-    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.Splash" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@android:color/white</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
-    <!-- 스플래시 로고 모핑 시간 -->
-    <integer name="pathMorphStartOffset">0</integer>
-    <integer name="pathMorphDuration">800</integer>
-    <!-- 모핑 이후 나머지 나타내기 값. startoffset은 위에 모핑 두개를 더하는걸 추천 -->
-    <integer name="alphaToShowStartOffset">500</integer>
-    <integer name="alphaToShowDuration">500</integer>
-
-    <!-- 탭 아이콘 애니메이션 속도-->
-    <integer name="animation_speed">2000</integer>
+    <style name="AppTheme.PopupAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
 
 
-    <!-- SvgAnimated 값 -->
-    <integer name="traceTime">500</integer>
-    <integer name="tracePerGlyph">500</integer>
-    <integer name="fillStart">300</integer>
-    <integer name="fillTime">500</integer>
+    <style name="AppTheme.Popup" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
 
 </resources>
